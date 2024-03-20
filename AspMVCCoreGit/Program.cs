@@ -9,7 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 //********************If you want to work on Razor Pages peoject then you call this method AddRazorPages()********************
 //********************If you want to work on WEB API Project then you call this method AddController()********************
 builder.Services.AddControllersWithViews();
-
+//********************RuntimeCompilation code is Start********************
+#if DEBUG
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+#endif
+//********************RuntimeCompilation code is End********************
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,11 +52,11 @@ if (!app.Environment.IsDevelopment())
 //********************Endpoint Code is End********************
 app.UseStaticFiles();
 //********************UseStaticFiles if we create outside wwwroot folder so for this use Code is Start********************
-//app.UseStaticFiles(new StaticFileOptions()
-//{
-//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(),"MyStaticFile")),
-//    RequestPath = "/MyStaticFile"
-//});
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "MyStaticFile")),
+    RequestPath = "/MyStaticFile"
+});
 //********************UseStaticFiles if we create outside wwwroot folder so for this use Code is End********************
 app.UseRouting();
 
