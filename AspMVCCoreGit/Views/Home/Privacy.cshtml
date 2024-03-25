@@ -1,8 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
     ViewData["Icon"] = "~/favicon.ico";
-}
-<h1>@ViewData["Title"] | @Model.Name</h1>
+    var FullNAme = new Dictionary<string, string>()
+    {
+       {"FName","Hanzala "},
+       {"LName","Abbas"}
 
-<p>Use this page to detail your site's privacy policy.</p>
+    };
+}
+@* <h1>@ViewData["Title"] | @Model.Name</h1> *@
+<p>Use this page to detail your site's privacy policy.</p><a asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-id="" asp-all-route-data="@FullNAme">Privacy</a>
 

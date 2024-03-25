@@ -25,7 +25,7 @@ namespace AspMVCCoreGit.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Privacy(int id,string FullNAme)
         {
             //****************Code Start for Dynamic View****************
             //dynamic data = new System.Dynamic.ExpandoObject(); 
