@@ -5,9 +5,14 @@ namespace AspMVCCoreGit.Models
 {
     public class BookModel
     {
+        [DataType(DataType.Password)]
+        public string? MyField { get; set; } 
+
+
         public int Id { get; set; }
         [StringLength (100,MinimumLength = 3,ErrorMessage ="Book Title length is minimum atleast 3 and maximum is 100")]
         [Required (ErrorMessage ="Book Title is Required")]
+        
         public string? Title { get; set; }
         [StringLength(100, MinimumLength = 13, ErrorMessage = "Book Title length is minimum atleast 13 and maximum is 100")]
         public string? Description { get; set; }
