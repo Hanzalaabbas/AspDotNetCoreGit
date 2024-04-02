@@ -1,3 +1,7 @@
+using AspMVCCoreGit.Controllers;
+using AspMVCCoreGit.Data;
+using AspMVCCoreGit.Repository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 
@@ -13,6 +17,13 @@ builder.Services.AddControllersWithViews();
 #if DEBUG
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
+//******************** Using this service we can add Connection String code is Start********************
+//builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer("Server=.,Database=BookStore;Integrated Security=True;"));
+builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer("Data Source=.;Database=BookStore;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+//******************** Using this service we can add Connection String code is End********************
+//********************This Code is Used for Dependencies Code is Start********************
+builder.Services.AddScoped<BookRepository, BookRepository>();
+//********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
 var app = builder.Build();
 
