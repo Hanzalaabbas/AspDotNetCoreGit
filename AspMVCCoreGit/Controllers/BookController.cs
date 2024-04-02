@@ -37,6 +37,7 @@ namespace AspMVCCoreGit.Controllers
                 return RedirectToAction(nameof(AddNewBook),new { isSuccess = true });
             }
             }
+            ModelState.AddModelError("", "This is my Custome Error Message.");
             return View();
         }
         [HttpGet]

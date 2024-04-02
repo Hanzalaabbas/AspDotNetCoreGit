@@ -10,7 +10,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
+
 <form method="post" asp-controller="Book" asp-action="AddNewBook">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <br />
     <h1 class="display-4">Add New Book</h1>
     <div class="form-group">
     <label asp-for="Title">Title</label>
