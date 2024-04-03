@@ -32,6 +32,7 @@ namespace AspMVCCoreGit.Repository
             }
             return books;
         }
+        
        public async Task<int> AddNewBook(BookModel bookModel)
         {
             var newBook = new Books()
@@ -39,6 +40,7 @@ namespace AspMVCCoreGit.Repository
                 Author = bookModel.Author,
                 Title = bookModel.Title,
                 TotalPages = bookModel.TotalPages,
+                Language =bookModel.Language,
                 Description = bookModel.Description,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
@@ -69,6 +71,22 @@ namespace AspMVCCoreGit.Repository
                 return bookDetail;
             }
             return null; ;
+        }
+        public List<LanguageModel> ListLanguages1()
+        {
+            List<LanguageModel> data = new List<LanguageModel>()
+            {
+                new LanguageModel(){Id=1,Text= "Hindi"},
+                new LanguageModel(){Id=2,Text="English" },
+                new LanguageModel(){Id=3,Text="Urdu" },
+                new LanguageModel(){Id=4,Text="Punjabi"}
+            }.ToList();
+            return data;
+        }
+        public  List<String> ListLanguages()
+        {
+            List<string> data=  new List<string>() { "Hindi", "English", "Urdu", "Punjabi" };
+            return data;
         }
     }
 }

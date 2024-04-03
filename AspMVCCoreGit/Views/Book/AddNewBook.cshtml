@@ -6,7 +6,7 @@
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Congratulations!</strong> You should Added new book successfully.
-        Click <a asp-controller="book" asp-action="GetBook" asp-route-id="@Model.Id" >here</a> to view the details.
+        Click @* <a asp-controller="book" asp-action="GetBook" asp-route-id="@Model.Id" >here</a> *@ to view the details.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
@@ -15,11 +15,51 @@
     <div asp-validation-summary="All" class="text-danger"></div>
     <br />
     <h1 class="display-4">Add New Book</h1>
-    <div class="form-group">
+ @*    <div class="form-group">
         <label asp-for="MyField"></label>
         <input asp-for="MyField" class="form-control" />
         <span asp-validation-for="MyField" class="text-danger"></span>
+    </div> *@
+    @* *********************This is Static DropDownList is code Start********************* *@
+    @*    <div class="form-group">
+    <label asp-for="Language"></label>
+        <select asp-for="Language" class="form-control" required>
+            <option value=""> Please Choose Any Language</option>
+            <option value="English"> English (This is Globle Language)</option>
+            <option value="Urdu">Urdu (This is Native Language)</option>
+            <option selected value="Punjabi">Punjabi (This is best Language)</option>
+
+        </select>
+    <span asp-validation-for="Language" class="text-danger"></span>
+    </div> *@
+    @* *********************This is Static DropDownList code is End********************* *@
+    @* *********************This is  DropDownList using SelectList code is Start********************* *@
+    <div class="form-group">
+        <label asp-for="Language"></label>
+        <select asp-for="Language" class="form-control" asp-items="ViewBag.Language">
+            <option value="">Please Choose Laguage</option>
+        </select>
+        <span asp-validation-for="Language" class="text-danger"></span>
     </div>
+    @* *********************This is  DropDownList using SelectList code is End********************* *@
+    @* *********************This is  DropDownList using SelectListItem code is Start********************* *@
+    <div class="form-group">
+        <label asp-for="Language"></label>
+        <select asp-for="Language" class="form-control" asp-items="ViewBag.Language1">
+            <option value="">Please Choose Laguage</option>
+        </select>
+        <span asp-validation-for="Language" class="text-danger"></span>
+    </div>
+    @* *********************This is  DropDownList using SelectListItem code is End********************* *@
+    @* *********************This is  DropDownList using SelectListItem disabled and Selected code is Start********************* *@
+    <div class="form-group">
+        <label asp-for="Language"></label>
+        <select asp-for="Language" class="form-control" asp-items="ViewBag.Language2">
+            <option value="">Please Choose Laguage</option>
+        </select>
+        <span asp-validation-for="Language" class="text-danger"></span>
+    </div>
+    @* *********************This is  DropDownList using SelectListItem disabled and Selected code is End********************* *@
     <div class="form-group">
     <label asp-for="Title"></label>
     <input asp-for="Title" class="form-control" />

@@ -5,8 +5,8 @@ namespace AspMVCCoreGit.Models
 {
     public class BookModel
     {
-        [DataType(DataType.Password)]
-        public string? MyField { get; set; } 
+        //[DataType(DataType.Password)]
+        //public string? MyField { get; set; } 
 
 
         public int Id { get; set; }
