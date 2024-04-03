@@ -1,4 +1,5 @@
-﻿@model BookModel
+﻿@using AspMVCCoreGit.Enums
+@model BookModel
 @{
     ViewData["Title"] = "Add New Book";
 }
@@ -34,32 +35,50 @@
     </div> *@
     @* *********************This is Static DropDownList code is End********************* *@
     @* *********************This is  DropDownList using SelectList code is Start********************* *@
-    <div class="form-group">
+   @*  <div class="form-group">
         <label asp-for="Language"></label>
         <select asp-for="Language" class="form-control" asp-items="ViewBag.Language">
             <option value="">Please Choose Laguage</option>
         </select>
         <span asp-validation-for="Language" class="text-danger"></span>
-    </div>
+    </div> *@
     @* *********************This is  DropDownList using SelectList code is End********************* *@
     @* *********************This is  DropDownList using SelectListItem code is Start********************* *@
-    <div class="form-group">
+    @* <div class="form-group">
         <label asp-for="Language"></label>
         <select asp-for="Language" class="form-control" asp-items="ViewBag.Language1">
             <option value="">Please Choose Laguage</option>
         </select>
         <span asp-validation-for="Language" class="text-danger"></span>
-    </div>
+    </div> *@
     @* *********************This is  DropDownList using SelectListItem code is End********************* *@
     @* *********************This is  DropDownList using SelectListItem disabled and Selected code is Start********************* *@
-    <div class="form-group">
+  @*   <div class="form-group">
         <label asp-for="Language"></label>
         <select asp-for="Language" class="form-control" asp-items="ViewBag.Language2">
             <option value="">Please Choose Laguage</option>
         </select>
         <span asp-validation-for="Language" class="text-danger"></span>
-    </div>
+    </div> *@
     @* *********************This is  DropDownList using SelectListItem disabled and Selected code is End********************* *@
+    @* *********************This is  Multiple Select DropDownList using SelectListItem code is Start********************* *@
+@*     <div class="form-group">
+        <label asp-for="MultipleLanguage"></label>
+        <select asp-for="MultipleLanguage" class="form-control" asp-items="ViewBag.Language3" multiple>
+            <option value="">Please Choose Laguage</option>
+        </select>
+        <span asp-validation-for="MultipleLanguage" class="text-danger"></span>
+    </div> *@
+    @* *********************This is  Multiple Select DropDownList using SelectListItem code is End********************* *@
+    @* *********************This is  Enum DropDownList using SelectListItem code is Start********************* *@
+    <div class="form-group">
+        <label asp-for="LanguageEnum"></label>
+        <select asp-for="LanguageEnum" class="form-control" asp-items="Html.GetEnumSelectList<LanguageEnum>()" >
+            <option value="">Please Choose Laguage</option>
+        </select>
+        <span asp-validation-for="LanguageEnum" class="text-danger"></span>
+    </div>
+    @* *********************This is  Enum DropDownList using SelectListItem code is End********************* *@
     <div class="form-group">
     <label asp-for="Title"></label>
     <input asp-for="Title" class="form-control" />

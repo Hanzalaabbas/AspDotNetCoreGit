@@ -43,6 +43,15 @@ namespace AspMVCCoreGit.Controllers
                 new SelectListItem() {Text="Urdu",Value="3",Group =group3},
                 new SelectListItem() {Text="Punjabi",Value="4",Selected=true,Disabled=true,Group =group3},
             };
+            //**********************This is Multiple Select DropDownList using SelectListItem disabled and Selected code is Start * *********************
+            ViewBag.Language3 = new List<SelectListItem>()
+            {
+                new SelectListItem() {Text="Hindi",Value="1"},
+                new SelectListItem() {Text="English",Value="2"},
+                new SelectListItem() {Text="Urdu",Value="3"},
+                new SelectListItem() {Text="Punjabi",Value="4"},
+            };
+            //**********************This is Multiple Select  DropDownList using SelectListItem disabled and Selected code is End * *********************
             return View();
         }
         [HttpPost]
@@ -73,6 +82,15 @@ namespace AspMVCCoreGit.Controllers
                 new SelectListItem() {Text="Punjabi",Value="4",Selected=true,Disabled=true},
             };
             //**********************This is DropDownList using SelectListItem disabled and Selected code is End * *********************
+            //**********************This is Multiple Select DropDownList using SelectListItem disabled and Selected code is Start * *********************
+            ViewBag.Language3 = new List<SelectListItem>()
+            {
+                new SelectListItem() {Text="Hindi",Value="1"},
+                new SelectListItem() {Text="English",Value="2"},
+                new SelectListItem() {Text="Urdu",Value="3"},
+                new SelectListItem() {Text="Punjabi",Value="4"},
+            };
+            //**********************This is Multiple Select  DropDownList using SelectListItem disabled and Selected code is End * *********************
             ModelState.AddModelError("", "This is my Custome Error Message.");
             return View();
         }

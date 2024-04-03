@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using AspMVCCoreGit.Enums;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AspMVCCoreGit.Models
 {
@@ -20,6 +22,10 @@ namespace AspMVCCoreGit.Models
         public string? Author { get; set; }
         public string? Category { get; set;}
         public string? Language { get; set;}
+        
+        public List<string>? MultipleLanguage { get; set; }
+        [Required(ErrorMessage = "Please choose the language of the book")]
+        public LanguageEnum LanguageEnum { get; set; }
         [Required(ErrorMessage = "Book Total Pages is Required")]
 
         [Display(Name = "Total Number of Pages")]
@@ -28,3 +34,4 @@ namespace AspMVCCoreGit.Models
         public DateTime UpdatedOn { get; set; }
     }
 }
+
