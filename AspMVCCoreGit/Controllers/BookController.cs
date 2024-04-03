@@ -32,12 +32,16 @@ namespace AspMVCCoreGit.Controllers
                 Selected = true
 
             });
+            var group1 = new SelectListGroup() { Name = "Group 1" };
+            var group2 = new SelectListGroup() { Name = "Group 2" };
+            var group3 = new SelectListGroup() { Name = "Group 3" };
+            //**********************This is DropDownList using SelectListItem disabled and Selected code is End * *********************
             ViewBag.Language2 = new List<SelectListItem>()
             {
-                new SelectListItem() {Text="Hindi",Value="1",Disabled=true},
-                new SelectListItem() {Text="English",Value="2"},
-                new SelectListItem() {Text="Urdu",Value="3"},
-                new SelectListItem() {Text="Punjabi",Value="4",Selected=true,Disabled=true},
+                new SelectListItem() {Text="Hindi",Value="1",Group =group1},
+                new SelectListItem() {Text="English",Value="2",Group =group2},
+                new SelectListItem() {Text="Urdu",Value="3",Group =group3},
+                new SelectListItem() {Text="Punjabi",Value="4",Selected=true,Disabled=true,Group =group3},
             };
             return View();
         }
