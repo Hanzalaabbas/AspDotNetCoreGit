@@ -1,7 +1,6 @@
 ﻿using AspMVCCoreGit.Enums;
-using System.ComponentModel;
+using AspMVCCoreGit.Helpers;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AspMVCCoreGit.Models
 {
@@ -12,9 +11,11 @@ namespace AspMVCCoreGit.Models
 
 
         public int Id { get; set; }
-        [StringLength (100,MinimumLength = 3,ErrorMessage ="Book Title length is minimum atleast 3 and maximum is 100")]
-        [Required (ErrorMessage ="Book Title is Required")]
-        
+        //[StringLength (100,MinimumLength = 3,ErrorMessage ="Book Title length is minimum atleast 3 and maximum is 100")]
+        //[Required (ErrorMessage ="Book Title is Required")]
+        //[AllowedValues("MVC" ,ErrorMessage ="Please you only add MVC")]
+        //[DeniedValues ("SQL", ErrorMessage = "Please you can not add SQL")]
+        [MyCustomeValidation ("Azure",ErrorMessage = "This is Custome Error Message for custome Validation ")]
         public string? Title { get; set; }
         [StringLength(100, MinimumLength = 13, ErrorMessage = "Book Title length is minimum atleast 13 and maximum is 100")]
         public string? Description { get; set; }
