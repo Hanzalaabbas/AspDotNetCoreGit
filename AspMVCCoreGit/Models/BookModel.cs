@@ -21,8 +21,9 @@ namespace AspMVCCoreGit.Models
         [Required(ErrorMessage = "Book Author Name is Required")]
         public string? Author { get; set; }
         public string? Category { get; set;}
-        public string? Language { get; set;}
-        
+        public int LanguageId { get; set;}
+        public string? Language { get; set; }
+
         public List<string>? MultipleLanguage { get; set; }
         [Required(ErrorMessage = "Please choose the language of the book")]
         public LanguageEnum LanguageEnum { get; set; }

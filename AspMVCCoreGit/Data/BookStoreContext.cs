@@ -10,7 +10,8 @@ namespace AspMVCCoreGit.Data
         {
         }
         public DbSet<Books> Books { get; set; }
-        public DbSet<AspMVCCoreGit.Models.BookModel> BookModel { get; set; } = default!;
+        public DbSet<Language> Languages { get; set; }  
+        //public DbSet<AspMVCCoreGit.Models.BookModel> BookModel { get; set; } = default!;
 
 
         //********************We Can Add Connection String Like That in DbContext Code is Start********************

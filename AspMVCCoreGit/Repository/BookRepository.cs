@@ -14,7 +14,7 @@ namespace AspMVCCoreGit.Repository
         public async Task<List<BookModel>> GetAllBooks()
         {
             var books =new List<BookModel>();
-            var allBooks = await _context.Books.AsNoTracking().ToListAsync();
+            var allBooks = await _context.Books.Include(b => b.Language).AsNoTracking().ToListAsync();
             if (allBooks.Any() == true) {
             foreach (var book in allBooks)
                 {
@@ -26,7 +26,8 @@ namespace AspMVCCoreGit.Repository
                         Category = book.Category,
                         Id = book.Id,
                         Description = book.Description,
-                        Language = book.Language,
+                        LanguageId = book.LanguageId,
+                        Language = book.Language.Name
                     });
                 }
             }
@@ -40,10 +41,11 @@ namespace AspMVCCoreGit.Repository
                 Author = bookModel.Author,
                 Title = bookModel.Title,
                 TotalPages = bookModel.TotalPages,
-                Language =bookModel.Language,
+                LanguageId =bookModel.LanguageId    ,
                 Description = bookModel.Description,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
+
 
             };
            await _context.Books.AddAsync(newBook);
@@ -53,33 +55,49 @@ namespace AspMVCCoreGit.Repository
         public async Task<BookModel> GetAllBookById(int Id)
         {
 
-            var book = await _context.Books.Where(x => x.Id == Id).FirstOrDefaultAsync();
-            if( book is not null)
+            var data=  await _context.Books.Where(x => x.Id == Id).Select(book => new BookModel()
             {
-                var bookDetail = new BookModel()
-                {
-                    Author = book.Author,
-                    Title = book.Title,
-                    TotalPages = book.TotalPages.HasValue ?book.TotalPages.Value :0,//this condition is put here if totalpages have any value then ok other wise set zero
-                    Description = book.Description,
-                    Language = book.Language,
-                    Category = book.Category,
-                    Id = book.Id,
-                    CreatedOn = DateTime.UtcNow,
-                    UpdatedOn = DateTime.UtcNow,
-                };
-                return bookDetail;
-            }
-            return null; ;
+                Author = book.Author,
+                Title = book.Title,
+                TotalPages = book.TotalPages.HasValue ? book.TotalPages.Value : 0,//this condition is put here if totalpages have any value then ok other wise set zero
+                Description = book.Description,
+                LanguageId = book.LanguageId,
+                Category = book.Category,
+                Id = book.Id,
+                CreatedOn = DateTime.UtcNow,
+                UpdatedOn = DateTime.UtcNow,
+                Language = book.Language.Name
+            }).FirstOrDefaultAsync();
+            return data;
+
+
+            //if( book is not null)
+            //{
+            //    var bookDetail = new BookModel()
+            //    {
+            //        Author = book.Author,
+            //        Title = book.Title,
+            //        TotalPages = book.TotalPages.HasValue ?book.TotalPages.Value :0,//this condition is put here if totalpages have any value then ok other wise set zero
+            //        Description = book.Description,
+            //        LanguageId = book.LanguageId,
+            //        Category = book.Category,
+            //        Id = book.Id,
+            //        CreatedOn = DateTime.UtcNow,
+            //        UpdatedOn = DateTime.UtcNow,
+            //        Language = book.Languages.Name
+            //    };
+            //    return bookDetail;
+            //}
+            //return null; ;
         }
         public List<LanguageModel> ListLanguages1()
         {
             List<LanguageModel> data = new List<LanguageModel>()
             {
-                new LanguageModel(){Id=1,Text= "Hindi"},
-                new LanguageModel(){Id=2,Text="English" },
-                new LanguageModel(){Id=3,Text="Urdu" },
-                new LanguageModel(){Id=4,Text="Punjabi"}
+                new LanguageModel(){Id=1,Name= "Hindi"},
+                new LanguageModel(){Id=2,Name="English" },
+                new LanguageModel(){Id=3,Name="Urdu" },
+                new LanguageModel(){Id=4,Name="Punjabi"}
             }.ToList();
             return data;
         }

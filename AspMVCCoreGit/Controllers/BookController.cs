@@ -8,10 +8,12 @@ namespace AspMVCCoreGit.Controllers
     public class BookController : Controller
     {
         private readonly BookRepository _bookRepository =null;
+        private readonly LanguageRepository _languageRepository = null;
 
-        public BookController(BookRepository bookRepository)
+        public BookController(BookRepository bookRepository, LanguageRepository languageRepository)
         {
             _bookRepository = bookRepository;
+            _languageRepository = languageRepository;
         }
         //public BookController(BookRepository bookRepository) {
         //_bookRepository = bookRepository;
@@ -21,13 +23,13 @@ namespace AspMVCCoreGit.Controllers
             var data = await _bookRepository.GetAllBooks();
             return View(data);
         }
-        public IActionResult AddNewBook(bool isSuccess =false)
+        public async Task<IActionResult> AddNewBook(bool isSuccess =false)
         {
             ViewBag.IsSucces = isSuccess;
             ViewBag.Language =new SelectList(_bookRepository.ListLanguages());
             ViewBag.Language1 = _bookRepository.ListLanguages1().Select(x => new SelectListItem() 
             {
-                Text = x.Text,
+                Text = x.Name,
                 Value = x.Id.ToString() ,
                 Selected = true
 
@@ -52,6 +54,9 @@ namespace AspMVCCoreGit.Controllers
                 new SelectListItem() {Text="Punjabi",Value="4"},
             };
             //**********************This is Multiple Select  DropDownList using SelectListItem disabled and Selected code is End * *********************
+            //**********************This is   DropDownList using get data from database  code is Start * *********************
+            ViewBag.Language4 = new SelectList(await _languageRepository.GetLanguages(),"Id","Name");
+            //**********************This is   DropDownList using get data from database  code is End * *********************
             return View();
         }
         [HttpPost]
@@ -69,7 +74,7 @@ namespace AspMVCCoreGit.Controllers
             ViewBag.Language =new SelectList(_bookRepository.ListLanguages());
             ViewBag.Language1 = _bookRepository.ListLanguages1().Select(x => new SelectListItem()
             {
-                Text = x.Text,
+                Text = x.Name,
                 Value = x.Id.ToString(),
 
             });
@@ -91,6 +96,9 @@ namespace AspMVCCoreGit.Controllers
                 new SelectListItem() {Text="Punjabi",Value="4"},
             };
             //**********************This is Multiple Select  DropDownList using SelectListItem disabled and Selected code is End * *********************
+            //**********************This is   DropDownList using get data from database  code is Start * *********************
+            ViewBag.Language4 = new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");
+            //**********************This is   DropDownList using get data from database  code is End * *********************
             ModelState.AddModelError("", "This is my Custome Error Message.");
             return View();
         }
@@ -103,5 +111,6 @@ namespace AspMVCCoreGit.Controllers
            
             return View(data);
         }
+   
     }
 }

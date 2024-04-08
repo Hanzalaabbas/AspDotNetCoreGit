@@ -23,6 +23,7 @@ builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(
 //******************** Using this service we can add Connection String code is End********************
 //********************This Code is Used for Dependencies Code is Start********************
 builder.Services.AddScoped<BookRepository, BookRepository>();
+builder.Services.AddScoped<LanguageRepository, LanguageRepository>();
 //********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
 var app = builder.Build();

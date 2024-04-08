@@ -71,14 +71,32 @@
     </div> *@
     @* *********************This is  Multiple Select DropDownList using SelectListItem code is End********************* *@
     @* *********************This is  Enum DropDownList using SelectListItem code is Start********************* *@
-    <div class="form-group">
+ @*    <div class="form-group">
         <label asp-for="LanguageEnum"></label>
         <select asp-for="LanguageEnum" class="form-control" asp-items="Html.GetEnumSelectList<LanguageEnum>()" >
             <option value="">Please Choose Laguage</option>
         </select>
         <span asp-validation-for="LanguageEnum" class="text-danger"></span>
-    </div>
+    </div> *@
     @* *********************This is  Enum DropDownList using SelectListItem code is End********************* *@
+    @* *********************This is   DropDownList get data from database using SelectListItem code is Start********************* *@
+@*     <div class="form-group">
+        <label asp-for="LanguageId"></label>
+        <select asp-for="LanguageId" class="form-control" asp-items="Html.GetEnumSelectList<LanguageEnum>()">
+            <option value="">Please Choose Laguage</option>
+        </select>
+        <span asp-validation-for="LanguageId" class="text-danger"></span>
+    </div> *@
+    @* *********************This is  Enum DropDownList get data from database using SelectListItem code is End********************* *@
+    @* **********************This is   DropDownList using get data from database  code is Start * ********************* *@
+    <div class="form-group">
+        <label asp-for="LanguageId"></label>
+        <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language4">
+            <option value="">Please Choose Laguage</option>
+        </select>
+        <span asp-validation-for="LanguageId" class="text-danger"></span>
+    </div>
+    @* **********************This is   DropDownList using get data from database  code is Start * ********************* *@
     <div class="form-group">
     <label asp-for="Title"></label>
     <input asp-for="Title" class="form-control" />
