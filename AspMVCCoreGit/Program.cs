@@ -16,6 +16,8 @@ builder.Services.AddControllersWithViews();
 //********************RuntimeCompilation code is Start********************
 #if DEBUG
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+//builder.Services.AddRazorPages().AddRazorRuntimeCompilation().AddViewOptions(
+//    option => option.HtmlHelperOptions.ClientValidationEnabled = false);
 #endif
 //******************** Using this service we can add Connection String code is Start********************
 //builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer("Server=.,Database=BookStore;Integrated Security=True;"));
