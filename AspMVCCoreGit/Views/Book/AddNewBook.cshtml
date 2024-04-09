@@ -11,8 +11,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-
-<form method="post" asp-controller="Book" asp-action="AddNewBook">
+<div class="d-flex justify-content-center" >
+    <div class="spinner-border" role="status" id="myLoader" style="display:none">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<form method="post" asp-controller="Book" asp-action="AddNewBook" data-ajax="true" data-ajax-complete="myComplete" data-ajax-success="mySuccess" data-ajax-failure="myFailure" data-ajax-loading="#myLoader">
     <div asp-validation-summary="All" class="text-danger"></div>
     <br />
     <h1 class="display-4">Add New Book</h1>
@@ -122,3 +126,19 @@
         <input type="submit" value="Add Book" class="btn btn-primary"/>
     </div>
 </form>
+@section scripts{
+    <script>
+        function myComplete(data) { 
+            alert("This is Complete Funcation.");
+            console.log(data);
+        }
+        function mySuccess(data) {
+            alert("This is Success Funcation.");
+            console.log(data);
+        }
+        function myFailure(data) {
+            alert("This is Failure Funcation.");
+            console.log(data);
+        }
+    </script>
+}
