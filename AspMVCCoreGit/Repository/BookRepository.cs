@@ -27,7 +27,8 @@ namespace AspMVCCoreGit.Repository
                         Id = book.Id,
                         Description = book.Description,
                         LanguageId = book.LanguageId,
-                        Language = book.Language.Name
+                        Language = book.Language.Name,
+                        CoverImageUrl = book.CoverImageUrl
                     });
                 }
             }
@@ -45,6 +46,7 @@ namespace AspMVCCoreGit.Repository
                 Description = bookModel.Description,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
+                CoverImageUrl = bookModel.CoverImageUrl,
 
 
             };
@@ -66,7 +68,9 @@ namespace AspMVCCoreGit.Repository
                 Id = book.Id,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
-                Language = book.Language.Name
+                Language = book.Language.Name,
+                CoverImageUrl =book.CoverImageUrl
+                
             }).FirstOrDefaultAsync();
             return data;
 

@@ -34,6 +34,10 @@ namespace AspMVCCoreGit.Models
         public int TotalPages { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
+        [Display (Name ="Choose the Cover Photo of Your Book")]
+        [Required]
+        public IFormFile? CoverPhoto { get; set; }
+        public string? CoverImageUrl { get; set; }
     }
 }
 

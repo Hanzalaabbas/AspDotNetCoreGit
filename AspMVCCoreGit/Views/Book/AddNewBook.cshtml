@@ -16,7 +16,9 @@
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
-<form method="post" asp-controller="Book" asp-action="AddNewBook" data-ajax="true" data-ajax-complete="myComplete" data-ajax-success="mySuccess" data-ajax-failure="myFailure" data-ajax-loading="#myLoader">
+<form method="post" asp-controller="Book" asp-action="AddNewBook" 
+data-ajax="true" data-ajax-complete="myComplete" data-ajax-success="mySuccess"
+data-ajax-failure="myFailure" data-ajax-loading="#myLoader" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
     <br />
     <h1 class="display-4">Add New Book</h1>
@@ -120,6 +122,11 @@
         <label asp-for="TotalPages" ></label>
         <input asp-for="TotalPages" class="form-control" />
         <span asp-validation-for="TotalPages" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CoverPhoto" class="form-label"></label>
+        <input asp-for="CoverPhoto" class="form-control form-control-lg" id="formFileLg" />
+        <span asp-validation-for="CoverPhoto " class="text-danger"></span>
     </div>
     <br />
     <div class="form-group">

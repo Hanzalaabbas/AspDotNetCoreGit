@@ -9,11 +9,13 @@ namespace AspMVCCoreGit.Controllers
     {
         private readonly BookRepository _bookRepository =null;
         private readonly LanguageRepository _languageRepository = null;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public BookController(BookRepository bookRepository, LanguageRepository languageRepository)
+        public BookController(BookRepository bookRepository, LanguageRepository languageRepository, IWebHostEnvironment webHostEnvironment)
         {
             _bookRepository = bookRepository;
             _languageRepository = languageRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
         //public BookController(BookRepository bookRepository) {
         //_bookRepository = bookRepository;
@@ -64,6 +66,14 @@ namespace AspMVCCoreGit.Controllers
         {
             if(ModelState.IsValid) 
             { 
+                if (bookModel.CoverPhoto != null)
+                {
+                    string folder = "Books/cover";
+                    folder += Guid.NewGuid().ToString() +"_"+ bookModel.CoverPhoto.FileName  ;
+                    bookModel.CoverImageUrl = "/"+ folder;
+                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+                    await bookModel.CoverPhoto.CopyToAsync(new FileStream(serverFolder,FileMode.Create));
+                }
             int id = await _bookRepository.AddNewBook(bookModel);
 
             if (id > 0)
