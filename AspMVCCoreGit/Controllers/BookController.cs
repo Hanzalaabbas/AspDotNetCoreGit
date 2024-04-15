@@ -68,13 +68,27 @@ namespace AspMVCCoreGit.Controllers
             { 
                 if (bookModel.CoverPhoto != null)
                 {
-                    string folder = "Books/cover";
-                    folder += Guid.NewGuid().ToString() +"_"+ bookModel.CoverPhoto.FileName  ;
-                    bookModel.CoverImageUrl = "/"+ folder;
-                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
-                    await bookModel.CoverPhoto.CopyToAsync(new FileStream(serverFolder,FileMode.Create));
+
+                    string folder = "Books/cover/";
+                   bookModel.CoverImageUrl = await UploadImage(folder,bookModel.CoverPhoto);
                 }
-            int id = await _bookRepository.AddNewBook(bookModel);
+                if (bookModel.GalleryFiles != null)
+                {
+
+                    string folder = "Books/gallery/";
+                    bookModel.Gallery = new List<GalleryModel>();
+                    foreach (var file in bookModel.GalleryFiles)
+                    {
+                        var gallery = new GalleryModel()
+                        {
+                            Name = file.FileName,
+                            URL= await UploadImage(folder, file)
+                        };
+                        bookModel.Gallery.Add(gallery);
+                    }
+                   // bookModel.CoverImageUrl = 
+                }
+                int id = await _bookRepository.AddNewBook(bookModel);
 
             if (id > 0)
             {
@@ -112,6 +126,15 @@ namespace AspMVCCoreGit.Controllers
             ModelState.AddModelError("", "This is my Custome Error Message.");
             return View();
         }
+
+        private async Task<string> UploadImage(string folder,IFormFile file)
+        {
+            folder += Guid.NewGuid().ToString() + "_" + file.FileName;
+            string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+            await file.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+            return "/" + folder;
+        }
+
         [HttpGet]
         //[Route("book-details/{Id}",Name = "bookDetailsRoute")]
         public async Task<IActionResult> GetBook(int Id)

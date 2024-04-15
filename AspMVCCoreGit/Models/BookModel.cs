@@ -15,7 +15,7 @@ namespace AspMVCCoreGit.Models
         //[Required (ErrorMessage ="Book Title is Required")]
         //[AllowedValues("MVC" ,ErrorMessage ="Please you only add MVC")]
         //[DeniedValues ("SQL", ErrorMessage = "Please you can not add SQL")]
-        [MyCustomeValidation ("Azure",ErrorMessage = "This is Custome Error Message for custome Validation ")]
+        //[MyCustomeValidation ("Azure",ErrorMessage = "This is Custome Error Message for custome Validation ")]
         public string? Title { get; set; }
         [StringLength(100, MinimumLength = 13, ErrorMessage = "Book Title length is minimum atleast 13 and maximum is 100")]
         public string? Description { get; set; }
@@ -38,6 +38,10 @@ namespace AspMVCCoreGit.Models
         [Required]
         public IFormFile? CoverPhoto { get; set; }
         public string? CoverImageUrl { get; set; }
+        [Display(Name = "Choose the Cover Photo of Your Book")]
+        [Required]
+        public IFormFileCollection? GalleryFiles { get; set; }
+        public List<GalleryModel>? Gallery { get; set; }
     }
 }
 

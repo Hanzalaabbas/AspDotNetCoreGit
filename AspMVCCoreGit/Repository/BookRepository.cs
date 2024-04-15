@@ -50,6 +50,17 @@ namespace AspMVCCoreGit.Repository
 
 
             };
+            newBook.BookGalleries = new List<BookGallery>();
+            //var gallery = new List<BookGallery>();
+            foreach (var file in bookModel.Gallery)
+            {
+                newBook.BookGalleries.Add(new BookGallery()
+                {
+                    Name =file.Name,
+                    URL = file.URL,
+                });
+            }
+
            await _context.Books.AddAsync(newBook);
            await _context.SaveChangesAsync();
             return newBook.Id;
@@ -69,8 +80,15 @@ namespace AspMVCCoreGit.Repository
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 Language = book.Language.Name,
-                CoverImageUrl =book.CoverImageUrl
-                
+                CoverImageUrl =book.CoverImageUrl,
+                Gallery = book.BookGalleries.Select(book => new GalleryModel()
+                {
+                    Id = book.Id,
+                    Name = book.Name,
+                    URL = book.URL,
+                }).ToList()
+
+
             }).FirstOrDefaultAsync();
             return data;
 

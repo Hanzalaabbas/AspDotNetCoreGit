@@ -4,6 +4,7 @@ using AspMVCCoreGit.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspMVCCoreGit.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    partial class BookStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20240415055157_addnewgallerytable")]
+    partial class addnewgallerytable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,6 +36,9 @@ namespace AspMVCCoreGit.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BooksId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -43,7 +49,7 @@ namespace AspMVCCoreGit.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
+                    b.HasIndex("BooksId");
 
                     b.ToTable("BookGalleries");
                 });
@@ -111,13 +117,9 @@ namespace AspMVCCoreGit.Migrations
 
             modelBuilder.Entity("AspMVCCoreGit.Data.BookGallery", b =>
                 {
-                    b.HasOne("AspMVCCoreGit.Data.Books", "Book")
+                    b.HasOne("AspMVCCoreGit.Data.Books", null)
                         .WithMany("BookGalleries")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
+                        .HasForeignKey("BooksId");
                 });
 
             modelBuilder.Entity("AspMVCCoreGit.Data.Books", b =>

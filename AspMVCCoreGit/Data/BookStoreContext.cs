@@ -10,7 +10,8 @@ namespace AspMVCCoreGit.Data
         {
         }
         public DbSet<Books> Books { get; set; }
-        public DbSet<Language> Languages { get; set; }  
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<BookGallery> BookGalleries { get; set; }
         //public DbSet<AspMVCCoreGit.Models.BookModel> BookModel { get; set; } = default!;
 
 

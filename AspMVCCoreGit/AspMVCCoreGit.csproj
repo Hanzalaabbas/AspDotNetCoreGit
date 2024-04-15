@@ -93,6 +93,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Books\cover\" />
+    <Folder Include="wwwroot\Books\gallery\" />
   </ItemGroup>
 
 </Project>
