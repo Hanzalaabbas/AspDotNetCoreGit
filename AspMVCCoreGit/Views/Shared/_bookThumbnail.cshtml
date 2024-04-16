@@ -1,0 +1,43 @@
+﻿@model BookModel
+<div class="card ">
+    <img class="card-img-top" src="@(string.IsNullOrEmpty(Model.CoverImageUrl) ? "/images/noimage.jpg" : Model.CoverImageUrl)" alt="Card image" style="width:100%">
+    <div class="card-body">
+        <h4 class="card-title">@(string.IsNullOrEmpty(Model.Title) ? "Name is not Avaliable" : Model.Title) </h4>
+        <p class="card-text">@(string.IsNullOrEmpty(Model.Description) ? "Description is not Avaliable" : Model.Description)</p>
+        @* <a href="#" class="btn btn-primary stretched-link">View Details</a> *@
+        @* <span class="" style="text-align:right">@book.Author</span> *@
+        @*     <p class="" style="text-align:right">@book.Author</p> *@
+        <div class="row">
+            <div class="col-md-6 col-lg-6">
+                <a asp-controller="book" asp-action="GetBook" asp-route-Id="@Model.Id" class="btn btn-primary stretched-link">View Details</a>
+            </div>
+            <div class="col-md-6 col-lg-6 ">
+                <p class="" style="text-align:right">@(string.IsNullOrEmpty(Model.Author) ? "NA" : Model.Author)</p>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+           
+               @*  <div class="card ">
+                <img class="card-img-top" src="~/images/mosque.jpg" alt="Card image" style="width:100%">
+                    <div class="card-body">
+                        <h4 class="card-title">Asp.Net Core</h4>
+                        <p class="card-text">This is Asp.net Book.</p>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <a asp-controller="book" asp-action="GetBook"  class="btn btn-primary stretched-link">View Details</a>
+                            </div>
+                            <div class="col-md-6 col-lg-6 ">
+                                <p class="" style="text-align:right">Hanzala</p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            *@
+
+
+   

@@ -10,14 +10,12 @@
     @foreach(var book in Model)
     {
             <div class="col-sm-4 p-0 pt-0 pb-4 pr-4">
-            <div class="card ">
+                <partial name="_bookThumbnail" model="@book" />
+           @*  <div class="card ">
                     <img class="card-img-top" src="@book.CoverImageUrl" alt="Card image" style="width:100%">
                 <div class="card-body" >
                 <h4 class="card-title">@book.Title</h4>
                 <p class="card-text">@book.Description</p>
-                  @* <a href="#" class="btn btn-primary stretched-link">View Details</a> *@
-                        @* <span class="" style="text-align:right">@book.Author</span> *@
-                    @*     <p class="" style="text-align:right">@book.Author</p> *@
                         <div class="row">
                             <div class="col-md-6 col-lg-6">
                                 <a asp-controller="book" asp-action="GetBook" asp-route-Id="@book.Id" class="btn btn-primary stretched-link">View Details</a>
@@ -29,7 +27,9 @@
 
 
                     </div>
-            </div>
+            </div> *@
+
+
             </div>
            
 

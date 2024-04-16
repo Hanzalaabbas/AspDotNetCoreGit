@@ -47,6 +47,7 @@ namespace AspMVCCoreGit.Repository
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 CoverImageUrl = bookModel.CoverImageUrl,
+                BookPdfUrl = bookModel.BookPdfUrl
 
 
             };
@@ -86,13 +87,12 @@ namespace AspMVCCoreGit.Repository
                     Id = book.Id,
                     Name = book.Name,
                     URL = book.URL,
-                }).ToList()
+                }).ToList(),
+                BookPdfUrl = book.BookPdfUrl
 
 
             }).FirstOrDefaultAsync();
             return data;
-
-
             //if( book is not null)
             //{
             //    var bookDetail = new BookModel()

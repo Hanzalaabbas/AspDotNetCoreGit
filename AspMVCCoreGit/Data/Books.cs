@@ -13,6 +13,7 @@
         public DateTime? UpdatedOn { get; set; }
         public Language? Language { get; set; }
         public string? CoverImageUrl { get; set; }
+        public string? BookPdfUrl { get; set; }
         public ICollection<BookGallery> BookGalleries { get; set; }   
     }
 }

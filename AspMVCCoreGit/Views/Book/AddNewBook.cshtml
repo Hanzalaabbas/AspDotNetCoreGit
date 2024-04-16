@@ -124,7 +124,7 @@ data-ajax-failure="myFailure" data-ajax-loading="#myLoader" enctype="multipart/f
         <span asp-validation-for="TotalPages" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="CoverPhoto" class="form-label"></label>
+        <label asp-for="CoverPhoto" class="form-label"></label> 
         <input asp-for="CoverPhoto" class="form-control form-control-lg" id="formFileLg" />
         <span asp-validation-for="CoverPhoto " class="text-danger"></span>
     </div>
@@ -133,11 +133,17 @@ data-ajax-failure="myFailure" data-ajax-loading="#myLoader" enctype="multipart/f
         <input asp-for="GalleryFiles" class="form-control form-control-lg" id="formFileLg" />
         <span asp-validation-for="GalleryFiles " class="text-danger"></span>
     </div>
+    <div class="form-group">
+        <label asp-for="BookPdf" class="form-label"></label>
+        <input asp-for="BookPdf" class="form-control form-control-lg" id="formFileLg" />
+        <span asp-validation-for="BookPdf " class="text-danger"></span>
+    </div>
     <br />
     <div class="form-group">
         <input type="submit" value="Add Book" class="btn btn-primary"/>
     </div>
 </form>
+
 @section scripts{
     <script>
         function myComplete(data) { 

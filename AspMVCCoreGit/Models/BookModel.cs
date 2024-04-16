@@ -38,10 +38,15 @@ namespace AspMVCCoreGit.Models
         [Required]
         public IFormFile? CoverPhoto { get; set; }
         public string? CoverImageUrl { get; set; }
-        [Display(Name = "Choose the Cover Photo of Your Book")]
+        [Display(Name = "Choose the Gallery Photo of Your Book")]
         [Required]
         public IFormFileCollection? GalleryFiles { get; set; }
         public List<GalleryModel>? Gallery { get; set; }
+
+        [Display(Name = "Choose the PDF file of Your Book")]
+        [Required]
+        public IFormFile? BookPdf { get; set; }
+        public string? BookPdfUrl { get; set; }
     }
 }
 
