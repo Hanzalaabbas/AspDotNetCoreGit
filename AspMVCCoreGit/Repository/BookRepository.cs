@@ -34,8 +34,24 @@ namespace AspMVCCoreGit.Repository
             }
             return books;
         }
-        
-       public async Task<int> AddNewBook(BookModel bookModel)
+        public async Task<List<BookModel>> GetTopBooksAsync(int count)
+        {
+           
+            return await _context.Books.Select(book => new BookModel()
+                    {
+                       Title = book.Title,
+                        Author = book.Author,
+                        TotalPages = (int)book.TotalPages,
+                        Category = book.Category,
+                        Id = book.Id,
+                        Description = book.Description,
+                        LanguageId = book.LanguageId,
+                        Language = book.Language.Name,
+                        CoverImageUrl = book.CoverImageUrl
+                    }).Take(count).ToListAsync();
+        }
+
+        public async Task<int> AddNewBook(BookModel bookModel)
         {
             var newBook = new Books()
             {

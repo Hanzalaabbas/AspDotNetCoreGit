@@ -15,28 +15,33 @@
 
 
 <div class="container">
-    <h3 class="display-4">Top Three Books</h3>
+    <h3 class="display-4">Top  Books</h3>
+    @* Component is call Coding start *@
+    @*    @await Component.InvokeAsync("TopBooks", new{count=3}) *@ @* 1 way to call Component *@
+    <vc:top-books count="3"></vc:top-books> @* 2 way to call Component *@
+    @* Component is call Coding End *@
 
-    <div class="row">
+
+  @*  <div class="row">
         <div class="col-sm-4 p-0 pt-0 pb-4 pr-4">
-            @* <partial name="_bookThumbnail" model="new BookModel()"/> *@
+            <partial name="_bookThumbnail" model="new BookModel()"/>
             @Html.Partial("_bookThumbnail", new BookModel())
         </div>
         <div class="col-sm-4 p-0 pt-0 pb-4 pr-4">
-            @* <partial name="_bookThumbnail" model="new BookModel()" /> *@
+            <partial name="_bookThumbnail" model="new BookModel()" />
             @await Html.PartialAsync("_bookThumbnail", new BookModel())
         </div>
         <div class="col-sm-4 p-0 pt-0 pb-4 pr-4">
-            @* <partial name="_bookThumbnail" model="new BookModel()"  /> *@
+            <partial name="_bookThumbnail" model="new BookModel()"  />
             @{
                 Html.RenderPartial("_bookThumbnail", new BookModel());
             }
         </div>
         <div class="col-sm-4 p-0 pt-0 pb-4 pr-4">
-            @* <partial name="_bookThumbnail" model="new BookModel()" /> *@
+            <partial name="_bookThumbnail" model="new BookModel()" />
             @{
               await  Html.RenderPartialAsync("_bookThumbnail", new BookModel());
             }
         </div>
-    </div>
+    </div>  *@
 </div>
