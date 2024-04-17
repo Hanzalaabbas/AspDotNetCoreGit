@@ -3,6 +3,7 @@ using AspMVCCoreGit.Data;
 using AspMVCCoreGit.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -79,5 +80,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+//Conventional Routing code is start
+app.MapControllerRoute(
+    name: "Privacy",
+    pattern: "Priv-acy/{id?}",
+    defaults: new {controller="Home" , action= "Privacy" });
+//Conventional Routing code is End
 app.Run();
