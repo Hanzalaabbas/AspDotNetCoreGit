@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AspMVCCoreGit.Controllers
 {
+    //This is Token Replacment Code is ***************************** Start
+    [Route("[controller]/[action]")]
+    //This is Token Replacment Code is ***************************** End
     public class BookController : Controller
     {
         private readonly BookRepository _bookRepository =null;
@@ -20,6 +23,7 @@ namespace AspMVCCoreGit.Controllers
         //public BookController(BookRepository bookRepository) {
         //_bookRepository = bookRepository;
         //}
+        [Route("~/all-books")]
         public async Task<IActionResult> GetAllBooks()
         {
             var data = await _bookRepository.GetAllBooks();
@@ -142,7 +146,7 @@ namespace AspMVCCoreGit.Controllers
         }
 
         [HttpGet]
-        //[Route("book-details/{Id}",Name = "bookDetailsRoute")]
+        //[Route("~/book-details/{Id}",Name = "bookDetailsRoute")]
         public async Task<IActionResult> GetBook(int Id)
         {
             var data = await _bookRepository.GetAllBookById(Id);

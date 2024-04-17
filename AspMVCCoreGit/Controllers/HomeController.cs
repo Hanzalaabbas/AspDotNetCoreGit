@@ -5,6 +5,9 @@ using System.Dynamic;
 
 namespace AspMVCCoreGit.Controllers
 {
+    //This is Token Replacment Code is ***************************** Start
+    [Route("[controller]/[action]")]
+    //This is Token Replacment Code is ***************************** End
     public class HomeController : Controller
     {
         
@@ -18,14 +21,17 @@ namespace AspMVCCoreGit.Controllers
         [ViewData]
         public string? Title { get; set; }
         //****************Code End for [ViewData] Attribut****************
+        [Route("~/")]
+        //[Route("home/index")] *****************If we want to change in future controller or action method name then its change route to for this reslove this issue we can use "Token Replacment" 
         public IActionResult Index()
         {
 
             Title = "Home from Controller to Layout USing ViewData Attributes";
             return View();
         }
-
-        public IActionResult Privacy(int id,string FullNAme)
+        //[Route("Priv-acy/{id?}/{FullName?}")]
+       // [HttpGet("Priv-acy/{id?}/{FullName?}", Name = "Privacy" , Order =1)]
+        public IActionResult Privacy(int id,string FullName)
         {
             //****************Code Start for Dynamic View****************
             //dynamic data = new System.Dynamic.ExpandoObject(); 

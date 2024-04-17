@@ -76,14 +76,15 @@ app.UseStaticFiles(new StaticFileOptions()
 app.UseRouting();
 
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-//Conventional Routing code is start
-app.MapControllerRoute(
-    name: "Privacy",
-    pattern: "Priv-acy/{id?}",
-    defaults: new {controller="Home" , action= "Privacy" });
-//Conventional Routing code is End
+app.MapControllers();
+//app.MapDefaultControllerRoute();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+//Conventional Routing code is ***************************** start
+//app.MapControllerRoute(
+//    name: "Privacy",
+//    pattern: "Priv-acy/{id?}",
+//    defaults: new {controller="Home" , action= "Privacy" });
+//Conventional Routing code is ***************************** End
 app.Run();
