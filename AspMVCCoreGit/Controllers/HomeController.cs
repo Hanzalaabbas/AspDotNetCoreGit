@@ -6,7 +6,7 @@ using System.Dynamic;
 namespace AspMVCCoreGit.Controllers
 {
     //This is Token Replacment Code is ***************************** Start
-    [Route("[controller]/[action]")]
+   // [Route("[controller]/[action]")]
     //This is Token Replacment Code is ***************************** End
     public class HomeController : Controller
     {
@@ -30,8 +30,9 @@ namespace AspMVCCoreGit.Controllers
             return View();
         }
         //[Route("Priv-acy/{id?}/{FullName?}")]
-       // [HttpGet("Priv-acy/{id?}/{FullName?}", Name = "Privacy" , Order =1)]
-        public IActionResult Privacy(int id,string FullName)
+        // [HttpGet("Priv-acy/{id?}/{FullName?}", Name = "Privacy" , Order =1)]
+        [Route("Priv-acy/{FullName:alpha:minlength(5)}")]// *************Added here alpha constraint because  its only take alphabet****************
+        public IActionResult Privacy(string FullName)
         {
             //****************Code Start for Dynamic View****************
             //dynamic data = new System.Dynamic.ExpandoObject(); 

@@ -146,7 +146,7 @@ namespace AspMVCCoreGit.Controllers
         }
 
         [HttpGet]
-        //[Route("~/book-details/{Id}",Name = "bookDetailsRoute")]
+        [Route("~/book-details/{Id:int:min(1)}",Name = "bookDetailsRoute")]
         public async Task<IActionResult> GetBook(int Id)
         {
             var data = await _bookRepository.GetAllBookById(Id);
