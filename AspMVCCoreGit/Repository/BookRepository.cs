@@ -4,19 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AspMVCCoreGit.Repository
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly BookStoreContext? _context = null;
 
-        public BookRepository(BookStoreContext context) {
+        public BookRepository(BookStoreContext context)
+        {
             _context = context;
         }
         public async Task<List<BookModel>> GetAllBooks()
         {
-            var books =new List<BookModel>();
+            var books = new List<BookModel>();
             var allBooks = await _context.Books.Include(b => b.Language).AsNoTracking().ToListAsync();
-            if (allBooks.Any() == true) {
-            foreach (var book in allBooks)
+            if (allBooks.Any() == true)
+            {
+                foreach (var book in allBooks)
                 {
                     books.Add(new BookModel()
                     {
@@ -36,19 +38,19 @@ namespace AspMVCCoreGit.Repository
         }
         public async Task<List<BookModel>> GetTopBooksAsync(int count)
         {
-           
+
             return await _context.Books.Select(book => new BookModel()
-                    {
-                       Title = book.Title,
-                        Author = book.Author,
-                        TotalPages = (int)book.TotalPages,
-                        Category = book.Category,
-                        Id = book.Id,
-                        Description = book.Description,
-                        LanguageId = book.LanguageId,
-                        Language = book.Language.Name,
-                        CoverImageUrl = book.CoverImageUrl
-                    }).Take(count).ToListAsync();
+            {
+                Title = book.Title,
+                Author = book.Author,
+                TotalPages = (int)book.TotalPages,
+                Category = book.Category,
+                Id = book.Id,
+                Description = book.Description,
+                LanguageId = book.LanguageId,
+                Language = book.Language.Name,
+                CoverImageUrl = book.CoverImageUrl
+            }).Take(count).ToListAsync();
         }
 
         public async Task<int> AddNewBook(BookModel bookModel)
@@ -58,7 +60,7 @@ namespace AspMVCCoreGit.Repository
                 Author = bookModel.Author,
                 Title = bookModel.Title,
                 TotalPages = bookModel.TotalPages,
-                LanguageId =bookModel.LanguageId    ,
+                LanguageId = bookModel.LanguageId,
                 Description = bookModel.Description,
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
@@ -73,19 +75,19 @@ namespace AspMVCCoreGit.Repository
             {
                 newBook.BookGalleries.Add(new BookGallery()
                 {
-                    Name =file.Name,
+                    Name = file.Name,
                     URL = file.URL,
                 });
             }
 
-           await _context.Books.AddAsync(newBook);
-           await _context.SaveChangesAsync();
+            await _context.Books.AddAsync(newBook);
+            await _context.SaveChangesAsync();
             return newBook.Id;
         }
         public async Task<BookModel> GetAllBookById(int Id)
         {
 
-            var data=  await _context.Books.Where(x => x.Id == Id).Select(book => new BookModel()
+            var data = await _context.Books.Where(x => x.Id == Id).Select(book => new BookModel()
             {
                 Author = book.Author,
                 Title = book.Title,
@@ -97,7 +99,7 @@ namespace AspMVCCoreGit.Repository
                 CreatedOn = DateTime.UtcNow,
                 UpdatedOn = DateTime.UtcNow,
                 Language = book.Language.Name,
-                CoverImageUrl =book.CoverImageUrl,
+                CoverImageUrl = book.CoverImageUrl,
                 Gallery = book.BookGalleries.Select(book => new GalleryModel()
                 {
                     Id = book.Id,
@@ -139,10 +141,14 @@ namespace AspMVCCoreGit.Repository
             }.ToList();
             return data;
         }
-        public  List<String> ListLanguages()
+        public List<String> ListLanguages()
         {
-            List<string> data=  new List<string>() { "Hindi", "English", "Urdu", "Punjabi" };
+            List<string> data = new List<string>() { "Hindi", "English", "Urdu", "Punjabi" };
             return data;
+        }
+        public string GetBookName()
+        {
+            return "Book Store Application";
         }
     }
 }

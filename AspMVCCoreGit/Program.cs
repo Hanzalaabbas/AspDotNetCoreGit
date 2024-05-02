@@ -25,8 +25,11 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer("Data Source=.;Database=BookStore;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
 //******************** Using this service we can add Connection String code is End********************
 //********************This Code is Used for Dependencies Code is Start********************
-builder.Services.AddScoped<BookRepository, BookRepository>();
-builder.Services.AddScoped<LanguageRepository, LanguageRepository>();
+//**********************Transient(AddTransient<>)-A new instance of the service will be created every time it is requested.**********************
+//**********************Scoped(AddScoped<>)-These are created onece per client request**********************
+//**********************Singleton(AddSingleton<>)-This instance will be same  for the entire application **********************
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
 //********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
 var app = builder.Build();

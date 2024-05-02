@@ -1,4 +1,6 @@
 ﻿@using AspMVCCoreGit.Enums
+@using AspMVCCoreGit.Repository
+@inject ILanguageRepository _languageRepository
 @model BookModel
 @{
     ViewData["Title"] = "Add New Book";
@@ -97,6 +99,11 @@ data-ajax-failure="myFailure" data-ajax-loading="#myLoader" enctype="multipart/f
     @* **********************This is   DropDownList using get data from database  code is Start * ********************* *@
     <div class="form-group">
         <label asp-for="LanguageId"></label>
+        @* This is way we can get dropdown list using repositerory pattern ******************* Code is Start *@
+       @*  <select asp-for="LanguageId" class="form-control" asp-items="(await _languageRepository.GetLanguages()).Select (x => new SelectListItem(){Text =x.Name,Value=x.Id.ToString()} )">
+            <option value="">Please Choose Laguage</option>
+        </select> *@
+        @* This is way we can get dropdown list using repositerory pattern ******************* Code is End *@
         <select asp-for="LanguageId" class="form-control" asp-items="ViewBag.Language4">
             <option value="">Please Choose Laguage</option>
         </select>
