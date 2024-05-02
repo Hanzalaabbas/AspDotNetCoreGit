@@ -14,11 +14,12 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-@foreach (var item in await _bookrepository.GetAllBooks())
+@* This is way we can get data using repositerory pattern ******************* Code is Start *@
+@* @foreach (var item in await _bookrepository.GetAllBooks())
 {
     <h2>@item.Title</h2>
-}
-
+} *@
+@* This is way we can get data using repositerory pattern ******************* Code is End *@
 <div class="container">
     <h3 class="display-4">Top  Books</h3>
     @* Component is call Coding start *@

@@ -12,10 +12,12 @@ namespace AspMVCCoreGit.Controllers
     {
         
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,IConfiguration configuration)
         {
             _logger = logger;
+            this._configuration = configuration;
         }
         //****************Code Start for [ViewData] Attribut****************
         [ViewData]
@@ -25,7 +27,10 @@ namespace AspMVCCoreGit.Controllers
         //[Route("home/index")] *****************If we want to change in future controller or action method name then its change route to for this reslove this issue we can use "Token Replacment" 
         public IActionResult Index()
         {
-
+            var result = _configuration["AppName"];
+            var key1 = _configuration["InfoBoj.key1"];
+            var key2 = _configuration["InfoBoj.key2"];
+            var key3 = _configuration["InfoBoj.key3:key3obj1"];
             Title = "Home from Controller to Layout USing ViewData Attributes";
             return View();
         }

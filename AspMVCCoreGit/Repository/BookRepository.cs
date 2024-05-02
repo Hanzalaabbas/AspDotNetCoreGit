@@ -7,10 +7,12 @@ namespace AspMVCCoreGit.Repository
     public class BookRepository : IBookRepository
     {
         private readonly BookStoreContext? _context = null;
+        private readonly IConfiguration _configuration;
 
-        public BookRepository(BookStoreContext context)
+        public BookRepository(BookStoreContext context,IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         public async Task<List<BookModel>> GetAllBooks()
         {
@@ -148,7 +150,7 @@ namespace AspMVCCoreGit.Repository
         }
         public string GetBookName()
         {
-            return "Book Store Application";
+            return _configuration["AppName"];
         }
     }
 }
