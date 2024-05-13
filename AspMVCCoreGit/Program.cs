@@ -1,13 +1,10 @@
-using AspMVCCoreGit.Controllers;
 using AspMVCCoreGit.Data;
 using AspMVCCoreGit.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.FileSystemGlobbing.Internal;
-using System.Collections.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container. 
 //********************IF we want to use for asp.net core project then add this method AddControllersWithViews(), ********************
 //********************IF you want mvc core and Razor Pages then call this methodAddMVC()********************
@@ -22,7 +19,9 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
 //******************** Using this service we can add Connection String code is Start********************
 //builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer("Server=.,Database=BookStore;Integrated Security=True;"));
-builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer("Data Source=.;Database=BookStore;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+//builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer("Data Source=.;Database=BookStore;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 //******************** Using this service we can add Connection String code is End********************
 //********************This Code is Used for Dependencies Code is Start********************
 //**********************Transient(AddTransient<>)-A new instance of the service will be created every time it is requested.**********************
