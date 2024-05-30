@@ -27,4 +27,11 @@
             </div>
         </div>
     </nav>
+    @if (_configuration.GetValue<bool>("NewBookAlert:DisplayNewBookAlert"))
+    {
+        <div class="alert alert-info" role="alert">
+            @(_configuration.GetValue<string>("NewBookAlert:BookName"))
+        </div>
+    }
+   
 </header>

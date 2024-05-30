@@ -27,6 +27,8 @@ namespace AspMVCCoreGit.Controllers
         //[Route("home/index")] *****************If we want to change in future controller or action method name then its change route to for this reslove this issue we can use "Token Replacment" 
         public IActionResult Index()
         {
+            var resultbool =_configuration.GetValue<bool>("NewBookAlert:DisplayNewBookAlert");
+            var resultstring =_configuration.GetValue<string>("NewBookAlert:BookName");
             var result = _configuration["AppName"];
             var key1 = _configuration["InfoBoj.key1"];
             var key2 = _configuration["InfoBoj.key2"];
