@@ -1,7 +1,7 @@
 using AspMVCCoreGit.Data;
+using AspMVCCoreGit.Models;
 using AspMVCCoreGit.Repository;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +31,9 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
 //********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
+//********************Configure Service code is Start********************
+builder.Services.Configure< NewBookAlertConfig>(builder.Configuration.GetSection("NewBookAlert"));
+//********************Configure Service code is End********************
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

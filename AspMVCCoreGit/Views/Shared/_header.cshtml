@@ -1,6 +1,8 @@
 ﻿@using AspMVCCoreGit.Repository
+@using Microsoft.Extensions.Options
 @inject IBookRepository _bookRepository //This is way we can call dependencey Injection in our View 
 @inject IConfiguration _configuration
+@inject IOptions<NewBookAlertConfig> _newBookAlertConfig //This is way we can call IOptions for configuraion in our View
 @{
     var newBook = _configuration.GetSection("NewBookAlert");
     var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method
@@ -33,12 +35,18 @@
             </div>
         </div>
     </nav>
-    @if (newBookAlert.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using Bind method
+    @if (_newBookAlertConfig.Value.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using IOptions configuration
+    {
+        <div class="alert alert-info" role="alert">
+            @_newBookAlertConfig.Value.BookName
+        </div>
+    }
+  @*   @if (newBookAlert.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using Bind method
     {
         <div class="alert alert-info" role="alert">
             @newBookAlert.BookName
         </div>
-    }
+    } *@
     @*    @if (newBook.GetValue<bool>("DisplayNewBookAlert"))//this is way we can get gat value from appsetting.json file using GetSection method
     {
         <div class="alert alert-info" role="alert">

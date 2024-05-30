@@ -1,23 +1,26 @@
 using AspMVCCoreGit.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Diagnostics;
 using System.Dynamic;
 
 namespace AspMVCCoreGit.Controllers
 {
     //This is Token Replacment Code is ***************************** Start
-   // [Route("[controller]/[action]")]
+    // [Route("[controller]/[action]")]
     //This is Token Replacment Code is ***************************** End
     public class HomeController : Controller
     {
-        
+
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly NewBookAlertConfig _newBookAlertConfig;//Read configuration using option pattern (IOptions) from appsettings 
 
-        public HomeController(ILogger<HomeController> logger,IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig)
         {
             _logger = logger;
             this._configuration = configuration;
+            _newBookAlertConfig = newBookAlertConfig.Value;//Read configuration using option pattern (IOptions) from appsettings 
         }
         //****************Code Start for [ViewData] Attribut****************
         [ViewData]
@@ -27,10 +30,11 @@ namespace AspMVCCoreGit.Controllers
         //[Route("home/index")] *****************If we want to change in future controller or action method name then its change route to for this reslove this issue we can use "Token Replacment" 
         public IActionResult Index()
         {
-            var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method  
-            _configuration.Bind("NewBookAlert", newBookAlert);
-            bool isDisplay = newBookAlert.DisplayNewBookAlert;
-            string DisplayName = newBookAlert.BookName;
+            bool isDisplay = _newBookAlertConfig.DisplayNewBookAlert;
+            //var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method  
+            //_configuration.Bind("NewBookAlert", newBookAlert);
+            //bool isDisplay = newBookAlert.DisplayNewBookAlert;
+            //string DisplayName = newBookAlert.BookName;
 
 
 
