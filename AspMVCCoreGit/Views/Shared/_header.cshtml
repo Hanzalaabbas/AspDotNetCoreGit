@@ -3,6 +3,9 @@
 @inject IConfiguration _configuration
 @{
     var newBook = _configuration.GetSection("NewBookAlert");
+    var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method
+    _configuration.Bind("NewBookAlert", newBookAlert);
+  
 }
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -30,12 +33,18 @@
             </div>
         </div>
     </nav>
-    @if (newBook.GetValue<bool>("DisplayNewBookAlert"))//this is way we can get gat value from appsetting.json file using GetSection method
+    @if (newBookAlert.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using Bind method
+    {
+        <div class="alert alert-info" role="alert">
+            @newBookAlert.BookName
+        </div>
+    }
+    @*    @if (newBook.GetValue<bool>("DisplayNewBookAlert"))//this is way we can get gat value from appsetting.json file using GetSection method
     {
         <div class="alert alert-info" role="alert">
             @(newBook.GetValue<string>("BookName"))
         </div>
-    }
+    } *@
   @*   @if (_configuration.GetValue<bool>("NewBookAlert:DisplayNewBookAlert"))
     {
         <div class="alert alert-info" role="alert">

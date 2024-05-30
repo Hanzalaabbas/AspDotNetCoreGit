@@ -27,6 +27,13 @@ namespace AspMVCCoreGit.Controllers
         //[Route("home/index")] *****************If we want to change in future controller or action method name then its change route to for this reslove this issue we can use "Token Replacment" 
         public IActionResult Index()
         {
+            var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method  
+            _configuration.Bind("NewBookAlert", newBookAlert);
+            bool isDisplay = newBookAlert.DisplayNewBookAlert;
+            string DisplayName = newBookAlert.BookName;
+
+
+
             var newBook = _configuration.GetSection("NewBookAlert").GetValue<bool>("DisplayNewBookAlert");
             //var resultbool =_configuration.GetValue<bool>("NewBookAlert:DisplayNewBookAlert");
             var resultstring =_configuration.GetValue<string>("NewBookAlert:BookName");
