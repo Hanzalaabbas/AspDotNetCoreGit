@@ -1,6 +1,9 @@
 ﻿@using AspMVCCoreGit.Repository
 @inject IBookRepository _bookRepository //This is way we can call dependencey Injection in our View 
 @inject IConfiguration _configuration
+@{
+    var newBook = _configuration.GetSection("NewBookAlert");
+}
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
@@ -27,11 +30,17 @@
             </div>
         </div>
     </nav>
-    @if (_configuration.GetValue<bool>("NewBookAlert:DisplayNewBookAlert"))
+    @if (newBook.GetValue<bool>("DisplayNewBookAlert"))//this is way we can get gat value from appsetting.json file using GetSection method
+    {
+        <div class="alert alert-info" role="alert">
+            @(newBook.GetValue<string>("BookName"))
+        </div>
+    }
+  @*   @if (_configuration.GetValue<bool>("NewBookAlert:DisplayNewBookAlert"))
     {
         <div class="alert alert-info" role="alert">
             @(_configuration.GetValue<string>("NewBookAlert:BookName"))
         </div>
-    }
+    } *@
    
 </header>
