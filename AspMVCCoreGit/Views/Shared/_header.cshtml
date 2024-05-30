@@ -3,7 +3,9 @@
 @inject IBookRepository _bookRepository //This is way we can call dependencey Injection in our View 
 @inject IConfiguration _configuration
 @inject IOptions<NewBookAlertConfig> _newBookAlertConfig //This is way we can call IOptions for configuraion in our View
+@inject IOptionsSnapshot<NewBookAlertConfig> _newBookAlertConfigSnapshot //This is way we can call IOptionsSnapshot for configuraion in our View
 @{
+    var newBookAlertConfigSnapshot = _newBookAlertConfigSnapshot.Value;
     var newBook = _configuration.GetSection("NewBookAlert");
     var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method
     _configuration.Bind("NewBookAlert", newBookAlert);
@@ -35,12 +37,18 @@
             </div>
         </div>
     </nav>
-    @if (_newBookAlertConfig.Value.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using IOptions configuration
+    @if (newBookAlertConfigSnapshot.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using IOptionsSnapshot configuration
+    {
+        <div class="alert alert-info" role="alert">
+            @newBookAlertConfigSnapshot.BookName
+        </div>
+    }
+  @*   @if (_newBookAlertConfig.Value.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using IOptions configuration
     {
         <div class="alert alert-info" role="alert">
             @_newBookAlertConfig.Value.BookName
         </div>
-    }
+    } *@
   @*   @if (newBookAlert.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using Bind method
     {
         <div class="alert alert-info" role="alert">
