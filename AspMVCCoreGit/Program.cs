@@ -29,6 +29,7 @@ builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(
 //**********************Singleton(AddSingleton<>)-This instance will be same  for the entire application **********************
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+builder.Services.AddSingleton<IMessageRepository, MessageRepository>();
 //********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
 //********************Configure Service code is Start********************

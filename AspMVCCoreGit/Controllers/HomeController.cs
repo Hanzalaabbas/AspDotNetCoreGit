@@ -1,4 +1,5 @@
 using AspMVCCoreGit.Models;
+using AspMVCCoreGit.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
@@ -16,13 +17,16 @@ namespace AspMVCCoreGit.Controllers
         private readonly IConfiguration _configuration;
         private readonly NewBookAlertConfig _newBookAlertConfig;//Read configuration using option pattern (IOptions) from appsettings 
         private readonly NewBookAlertConfig _newBookAlertConfigSnapshot;//Read configuration using option pattern (IOptions) from appsettings 
-
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot)
+        private readonly IMessageRepository _messageRepository;
+        private readonly IMessageRepository _newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot, IMessageRepository messageRepository, IMessageRepository newBookAlertConfigMonitor)
         {
             _logger = logger;
             this._configuration = configuration;
             _newBookAlertConfig = newBookAlertConfig.Value;//Read configuration using option pattern (IOptions) from appsettings 
             _newBookAlertConfigSnapshot = newBookAlertConfigSnapshot.Value;//Read configuration using option pattern (IOptionsSnapshot) from appsettings 
+            _messageRepository = messageRepository;
+            _newBookAlertConfigMonitor = newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
         }
         //****************Code Start for [ViewData] Attribut****************
         [ViewData]
@@ -38,6 +42,8 @@ namespace AspMVCCoreGit.Controllers
             //_configuration.Bind("NewBookAlert", newBookAlert);
             //bool isDisplay = newBookAlert.DisplayNewBookAlert;
             //string DisplayName = newBookAlert.BookName;
+            var value = _messageRepository.GetName();
+            var value2 = _newBookAlertConfigMonitor.GetName1();
 
 
 
