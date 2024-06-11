@@ -19,7 +19,9 @@ namespace AspMVCCoreGit.Controllers
         private readonly NewBookAlertConfig _newBookAlertConfigSnapshot;//Read configuration using option pattern (IOptions) from appsettings 
         private readonly IMessageRepository _messageRepository;
         private readonly IMessageRepository _newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot, IMessageRepository messageRepository, IMessageRepository newBookAlertConfigMonitor)
+        private readonly NewBookAlertConfig _ThiredPartyBookConfig;//Read configuration using Named options in asp.net core from appsettings 
+
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot, IMessageRepository messageRepository, IMessageRepository newBookAlertConfigMonitor, IOptionsSnapshot<NewBookAlertConfig> thiredPartyBookConfig)
         {
             _logger = logger;
             this._configuration = configuration;
@@ -27,6 +29,7 @@ namespace AspMVCCoreGit.Controllers
             _newBookAlertConfigSnapshot = newBookAlertConfigSnapshot.Value;//Read configuration using option pattern (IOptionsSnapshot) from appsettings 
             _messageRepository = messageRepository;
             _newBookAlertConfigMonitor = newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
+            _ThiredPartyBookConfig = thiredPartyBookConfig.Get("ThiredPartyBook");//Read configuration using Named options in asp.net core from appsettings 
         }
         //****************Code Start for [ViewData] Attribut****************
         [ViewData]
@@ -38,6 +41,7 @@ namespace AspMVCCoreGit.Controllers
         {
             bool isDisplaySnapshot = _newBookAlertConfigSnapshot.DisplayNewBookAlert;//Read configuration using option pattern (IOptionsSnapshot) from appsettings 
             bool isDisplay = _newBookAlertConfig.DisplayNewBookAlert;//Read configuration using option pattern (IOptions) from appsettings 
+            bool isDisplay1 = _ThiredPartyBookConfig.DisplayNewBookAlert;//Read configuration using Named options in asp.net core from appsettings 
             //var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method  
             //_configuration.Bind("NewBookAlert", newBookAlert);
             //bool isDisplay = newBookAlert.DisplayNewBookAlert;

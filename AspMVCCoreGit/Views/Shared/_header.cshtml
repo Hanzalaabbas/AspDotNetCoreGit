@@ -4,12 +4,14 @@
 @inject IConfiguration _configuration
 @inject IOptions<NewBookAlertConfig> _newBookAlertConfig //This is way we can call IOptions for configuraion in our View
 @inject IOptionsSnapshot<NewBookAlertConfig> _newBookAlertConfigSnapshot //This is way we can call IOptionsSnapshot for configuraion in our View
+@inject IOptionsSnapshot<NewBookAlertConfig> _ThiredPartyBookConfig //This is way we can call IOptionsSnapshot for configuraion in our View
 @{
     var newBookAlertConfigSnapshot = _newBookAlertConfigSnapshot.Value;
     var newBook = _configuration.GetSection("NewBookAlert");
     var newBookAlert = new NewBookAlertConfig();// this way we can get value from appsetting using Bind method
     _configuration.Bind("NewBookAlert", newBookAlert);
-  
+    var thiredPartyBookConfig = _ThiredPartyBookConfig.Get("ThiredPartyBook");
+
 }
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -41,6 +43,12 @@
     {
         <div class="alert alert-info" role="alert">
             @newBookAlertConfigSnapshot.BookName
+        </div>
+    }
+    @if (thiredPartyBookConfig.DisplayNewBookAlert)//Read configuration using Named options in asp.net core from appsettings
+    {
+        <div class="alert alert-info" role="alert">
+            @thiredPartyBookConfig.BookName
         </div>
     }
   @*   @if (_newBookAlertConfig.Value.DisplayNewBookAlert)//this is way we can get gat value from appsetting.json file using IOptions configuration

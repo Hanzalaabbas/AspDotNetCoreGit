@@ -33,7 +33,8 @@ builder.Services.AddSingleton<IMessageRepository, MessageRepository>();
 //********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
 //********************Configure Service code is Start********************
-builder.Services.Configure< NewBookAlertConfig>(builder.Configuration.GetSection("NewBookAlert"));
+builder.Services.Configure< NewBookAlertConfig>("InternalBook",builder.Configuration.GetSection("NewBookAlert"));
+builder.Services.Configure<NewBookAlertConfig>("ThiredPartyBook", builder.Configuration.GetSection("ThiredPartyBook"));
 //********************Configure Service code is End********************
 var app = builder.Build();
 
