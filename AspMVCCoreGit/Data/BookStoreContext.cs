@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using AspMVCCoreGit.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AspMVCCoreGit.Data
 {
-    public class BookStoreContext : DbContext
+    public class BookStoreContext : IdentityDbContext
     {
         public BookStoreContext(DbContextOptions<BookStoreContext> options) 
             :base(options)

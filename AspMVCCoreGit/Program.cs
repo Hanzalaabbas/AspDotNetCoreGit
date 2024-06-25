@@ -1,6 +1,7 @@
 using AspMVCCoreGit.Data;
 using AspMVCCoreGit.Models;
 using AspMVCCoreGit.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 
@@ -23,6 +24,9 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //******************** Using this service we can add Connection String code is End********************
+//******************** Using this service we can add AddIdentity with database code is Start********************
+builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();   
+//******************** Using this service we can add AddIdentity with database code is End********************
 //********************This Code is Used for Dependencies Code is Start********************
 //**********************Transient(AddTransient<>)-A new instance of the service will be created every time it is requested.**********************
 //**********************Scoped(AddScoped<>)-These are created onece per client request**********************
@@ -81,7 +85,7 @@ app.UseStaticFiles(new StaticFileOptions()
 });
 //********************UseStaticFiles if we create outside wwwroot folder so for this use Code is End********************
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 //app.MapDefaultControllerRoute();
