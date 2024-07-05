@@ -34,6 +34,7 @@ builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStor
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
 builder.Services.AddSingleton<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 //********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
 //********************Configure Service code is Start********************
