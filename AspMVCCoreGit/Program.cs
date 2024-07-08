@@ -25,8 +25,11 @@ builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(
 
 //******************** Using this service we can add Connection String code is End********************
 //******************** Using this service we can add AddIdentity with database code is Start********************
-builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();   
+//builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 //******************** Using this service we can add AddIdentity with database code is End********************
+//******************** Using this service we can add new column instead of  IdentityUser  class  code is Start********************
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
+//******************** Using this service we can add new column instead of  IdentityUser  class  code is End********************
 //********************This Code is Used for Dependencies Code is Start********************
 //**********************Transient(AddTransient<>)-A new instance of the service will be created every time it is requested.**********************
 //**********************Scoped(AddScoped<>)-These are created onece per client request**********************

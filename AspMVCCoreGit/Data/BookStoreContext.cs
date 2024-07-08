@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AspMVCCoreGit.Data
 {
-    public class BookStoreContext : IdentityDbContext
+    public class BookStoreContext : IdentityDbContext<ApplicationUser> //by "defult if we not anything" pass then "IdentityDbContext" class think we are working with "IdentityUser" class but now in our case we want to increase some columns then its complosry where we added new colums add in new class in our case my additional column class is "ApplicationUser"
     {
         public BookStoreContext(DbContextOptions<BookStoreContext> options) 
             :base(options)

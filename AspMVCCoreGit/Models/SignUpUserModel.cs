@@ -6,6 +6,9 @@ namespace AspMVCCoreGit.Models
     [Keyless]
     public class SignUpUserModel
     {
+        [Required(ErrorMessage = "Please Enter Your First Name")]
+        public string FirstName { get; set; }
+        public string? LastName { get; set; }
         [Required (ErrorMessage="Please Enter Your Email")]
         [Display(Name ="Email Address")]
         [EmailAddress (ErrorMessage ="Please Enter a Valid Email")]
