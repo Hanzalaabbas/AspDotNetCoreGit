@@ -30,6 +30,18 @@ builder.Services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(
 //******************** Using this service we can add new column instead of  IdentityUser  class  code is Start********************
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookStoreContext>();
 //******************** Using this service we can add new column instead of  IdentityUser  class  code is End********************
+//******************** Using this service we can configure the password complexity in Identity core  code is Start********************
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequiredLength = 5;
+    options.Password.RequiredUniqueChars = 1;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    
+});
+//******************** Using this service we can configure the password complexity in Identity core  code is End********************
 //********************This Code is Used for Dependencies Code is Start********************
 //**********************Transient(AddTransient<>)-A new instance of the service will be created every time it is requested.**********************
 //**********************Scoped(AddScoped<>)-These are created onece per client request**********************
