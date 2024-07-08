@@ -59,5 +59,12 @@ namespace AspMVCCoreGit.Controllers
             return View();
         }
 
+        [Route("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _accountRepository.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
