@@ -37,6 +37,27 @@ namespace AspMVCCoreGit.Controllers
             }
             return View();
         }
+        [HttpGet]
+        [Route("Login")]
+        public IActionResult LogIn()
+        {
+            return View();
+        }
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult>  LogIn(SignInModel signInModel)
+        {
+            if (ModelState.IsValid) {
+            
+            var result =await _accountRepository.PasswordSignInAsync(signInModel);
+                if(result.Succeeded)
+                {
+                    return RedirectToAction("Index","Home");
+                }
+                ModelState.AddModelError("", "Invalid Credentials");
+            }
+            return View();
+        }
 
     }
 }

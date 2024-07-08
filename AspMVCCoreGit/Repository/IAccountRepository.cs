@@ -6,5 +6,6 @@ namespace AspMVCCoreGit.Repository
     public interface IAccountRepository
     {
         Task<IdentityResult> CreateUserAsync(SignUpUserModel signUpUserModel);
+        Task<SignInResult> PasswordSignInAsync(SignInModel signInModel);
     }
 }

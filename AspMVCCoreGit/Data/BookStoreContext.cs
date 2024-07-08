@@ -14,6 +14,7 @@ namespace AspMVCCoreGit.Data
         public DbSet<Language> Languages { get; set; }
         public DbSet<BookGallery> BookGalleries { get; set; }
         public DbSet<SignUpUserModel> SignUpUsers { get; set; }
+        public DbSet<AspMVCCoreGit.Models.SignInModel> SignInModel { get; set; } = default!;
 
        
         //public DbSet<AspMVCCoreGit.Models.BookModel> BookModel { get; set; } = default!;
