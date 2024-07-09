@@ -56,6 +56,14 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.Configure< NewBookAlertConfig>("InternalBook",builder.Configuration.GetSection("NewBookAlert"));
 builder.Services.Configure<NewBookAlertConfig>("ThiredPartyBook", builder.Configuration.GetSection("ThiredPartyBook"));
 //********************Configure Service code is End********************
+//********************using  Redirect user to login page (custom login url) Service for Authorization code is Start********************
+var loginPath = builder.Configuration.GetSection("Application:LoginPath").Value;
+
+builder.Services.ConfigureApplicationCookie(builder =>
+{
+    builder.LoginPath = loginPath; //"/login";
+});
+//********************using  Redirect user to login page (custom login url) Service for Authorization code is End********************
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

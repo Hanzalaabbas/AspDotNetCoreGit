@@ -1,5 +1,6 @@
 ﻿using AspMVCCoreGit.Models;
 using AspMVCCoreGit.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -29,6 +30,7 @@ namespace AspMVCCoreGit.Controllers
             var data = await _bookRepository.GetAllBooks();
             return View(data);
         }
+        [Authorize]
         public async Task<IActionResult> AddNewBook(bool isSuccess =false)
         {
             ViewBag.IsSucces = isSuccess;
@@ -65,7 +67,9 @@ namespace AspMVCCoreGit.Controllers
             //**********************This is   DropDownList using get data from database  code is End * *********************
             return View();
         }
+        
         [HttpPost]
+        
         public async Task<IActionResult> AddNewBook(BookModel bookModel)
         {
             if(ModelState.IsValid) 
