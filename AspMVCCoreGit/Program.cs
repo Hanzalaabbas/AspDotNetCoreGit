@@ -1,4 +1,5 @@
 using AspMVCCoreGit.Data;
+using AspMVCCoreGit.Helpers;
 using AspMVCCoreGit.Models;
 using AspMVCCoreGit.Repository;
 using Microsoft.AspNetCore.Identity;
@@ -52,13 +53,16 @@ builder.Services.AddSingleton<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 //********************This Code is Used for Dependencies Code is Start********************
 //********************RuntimeCompilation code is End********************
+//********************UserClaimsPrincipalFactory service for store first and lastname store in claims code is Start********************
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
+//********************UserClaimsPrincipalFactory service for store first and lastname store in claims code is End********************
+
 //********************Configure Service code is Start********************
 builder.Services.Configure< NewBookAlertConfig>("InternalBook",builder.Configuration.GetSection("NewBookAlert"));
 builder.Services.Configure<NewBookAlertConfig>("ThiredPartyBook", builder.Configuration.GetSection("ThiredPartyBook"));
 //********************Configure Service code is End********************
 //********************using  Redirect user to login page (custom login url) Service for Authorization code is Start********************
 var loginPath = builder.Configuration.GetSection("Application:LoginPath").Value;
-
 builder.Services.ConfigureApplicationCookie(builder =>
 {
     builder.LoginPath = loginPath; //"/login";
