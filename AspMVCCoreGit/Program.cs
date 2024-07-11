@@ -2,6 +2,7 @@ using AspMVCCoreGit.Data;
 using AspMVCCoreGit.Helpers;
 using AspMVCCoreGit.Models;
 using AspMVCCoreGit.Repository;
+using AspMVCCoreGit.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -68,6 +69,9 @@ builder.Services.ConfigureApplicationCookie(builder =>
     builder.LoginPath = loginPath; //"/login";
 });
 //********************using  Redirect user to login page (custom login url) Service for Authorization code is End********************
+//********************using this service  Get logged-in user id in controller and sevices  code is Start********************
+builder.Services.AddScoped<IUserService, UserService>();
+//********************using this service  Get logged-in user id in controller and sevices  code is End********************
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

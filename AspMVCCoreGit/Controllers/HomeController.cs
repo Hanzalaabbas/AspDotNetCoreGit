@@ -1,5 +1,6 @@
 using AspMVCCoreGit.Models;
 using AspMVCCoreGit.Repository;
+using AspMVCCoreGit.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
@@ -15,20 +16,28 @@ namespace AspMVCCoreGit.Controllers
 
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IOptions<NewBookAlertConfig> newBookAlertConfig;
+        private readonly IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot;
         private readonly NewBookAlertConfig _newBookAlertConfig;//Read configuration using option pattern (IOptions) from appsettings 
         private readonly NewBookAlertConfig _newBookAlertConfigSnapshot;//Read configuration using option pattern (IOptions) from appsettings 
         private readonly IMessageRepository _messageRepository;
         private readonly IMessageRepository _newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
+        private readonly IOptionsSnapshot<NewBookAlertConfig> thiredPartyBookConfig;
+        private readonly IUserService _userService;
         private readonly NewBookAlertConfig _ThiredPartyBookConfig;//Read configuration using Named options in asp.net core from appsettings 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot, IMessageRepository messageRepository, IMessageRepository newBookAlertConfigMonitor, IOptionsSnapshot<NewBookAlertConfig> thiredPartyBookConfig)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot, IMessageRepository messageRepository, IMessageRepository newBookAlertConfigMonitor, IOptionsSnapshot<NewBookAlertConfig> thiredPartyBookConfig,IUserService userService)
         {
             _logger = logger;
             this._configuration = configuration;
+            this.newBookAlertConfig = newBookAlertConfig;
+            this.newBookAlertConfigSnapshot = newBookAlertConfigSnapshot;
             _newBookAlertConfig = newBookAlertConfig.Value;//Read configuration using option pattern (IOptions) from appsettings 
             _newBookAlertConfigSnapshot = newBookAlertConfigSnapshot.Value;//Read configuration using option pattern (IOptionsSnapshot) from appsettings 
             _messageRepository = messageRepository;
             _newBookAlertConfigMonitor = newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
+            this.thiredPartyBookConfig = thiredPartyBookConfig;
+            _userService = userService;
             _ThiredPartyBookConfig = thiredPartyBookConfig.Get("ThiredPartyBook");//Read configuration using Named options in asp.net core from appsettings 
         }
         //****************Code Start for [ViewData] Attribut****************
@@ -39,6 +48,8 @@ namespace AspMVCCoreGit.Controllers
         //[Route("home/index")] *****************If we want to change in future controller or action method name then its change route to for this reslove this issue we can use "Token Replacment" 
         public IActionResult Index()
         {
+            var userId= _userService.GetUserId();//this way we can get  UserID anywhere in controller and service  
+            var isLoggdIn = _userService.IsAuthenticated();
             bool isDisplaySnapshot = _newBookAlertConfigSnapshot.DisplayNewBookAlert;//Read configuration using option pattern (IOptionsSnapshot) from appsettings 
             bool isDisplay = _newBookAlertConfig.DisplayNewBookAlert;//Read configuration using option pattern (IOptions) from appsettings 
             bool isDisplay1 = _ThiredPartyBookConfig.DisplayNewBookAlert;//Read configuration using Named options in asp.net core from appsettings 
