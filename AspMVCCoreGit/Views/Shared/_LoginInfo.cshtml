@@ -1,16 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> _signInManager 
+
 @if(_signInManager.IsSignedIn(User))
 {
 
-    <a class="nav-link dropdown-toggle text-dark" asp-action="Logout" asp-controller="Account" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    @* <a class="nav-link dropdown-toggle text-dark" asp-action="Logout" asp-controller="Account" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> *@
        @* @User.Identity?.Name *@ @* this is for get email *@
-        @(User.FindFirst("UserFirstName").Value + " " + User.FindFirst("UserLastName").Value)
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @* @(User.FindFirst("UserFirstName").Value + " " + User.FindFirst("UserLastName").Value) *@
+    @* </a> *@
+   @*  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
+    </div> *@
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            @(User.FindFirst("UserFirstName").Value + " " + User.FindFirst("UserLastName").Value)
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+            <li><a class="dropdown-item active" asp-action="Logout" asp-controller="Account">Logout</a></li>
+            <li><a class="dropdown-item" asp-action="ChangePassword" asp-controller="Account">Change Password action</a></li>
+            
+        </ul>
     </div>
-   
 
 }
 else
@@ -20,4 +30,6 @@ else
         <a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="Signup">Register</a>
     </li>
 }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -69,6 +69,30 @@ namespace AspMVCCoreGit.Controllers
             await _accountRepository.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        
+        [Route("Change-Password")]
+        public IActionResult ChangePassword()
+        {
+           
+            return View();
+        }
+        
+        [HttpPost("Change-Password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel changePasswordModel)
+        {
+            if(ModelState.IsValid)
+            {
+                ViewBag.IsSuccess = true;
+                var result =await _accountRepository.ChangePasswordAsync(changePasswordModel);
+                if(result.Succeeded)
+                {
+                    ModelState.Clear();
+                    return View();
+                }
+            }
+
+            return View(changePasswordModel);
+        }
 
     }
 }

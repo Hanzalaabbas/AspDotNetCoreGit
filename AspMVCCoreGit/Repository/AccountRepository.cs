@@ -1,4 +1,5 @@
 ﻿using AspMVCCoreGit.Models;
+using AspMVCCoreGit.Services;
 using Microsoft.AspNetCore.Identity;
 
 namespace AspMVCCoreGit.Repository
@@ -7,6 +8,9 @@ namespace AspMVCCoreGit.Repository
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IUserService _userService;
+
+        public IUserService UserService { get; }
 
         //private readonly UserManager<IdentityUser> _userManager;
 
@@ -14,10 +18,11 @@ namespace AspMVCCoreGit.Repository
         //{
         //    _userManager = userManager;
         //}
-        public AccountRepository(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager)
+        public AccountRepository(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
         }
         public async Task<IdentityResult> CreateUserAsync(SignUpUserModel signUpUserModel)
         {
@@ -44,6 +49,13 @@ namespace AspMVCCoreGit.Repository
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+        public async Task<IdentityResult> ChangePasswordAsync(ChangePasswordModel changePasswordModel)
+        {
+            var userId = _userService.GetUserId();
+            var user =await _userManager.FindByIdAsync(userId);
+            return await _userManager.ChangePasswordAsync(user, changePasswordModel.CurrentPassword, changePasswordModel.NewPassword); 
+           
         }
 
 
