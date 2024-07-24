@@ -41,6 +41,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
+    options.SignIn.RequireConfirmedEmail = true;
     
 });
 //******************** Using this service we can configure the password complexity in Identity core  code is End********************

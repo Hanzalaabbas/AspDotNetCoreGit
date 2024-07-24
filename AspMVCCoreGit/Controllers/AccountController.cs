@@ -58,7 +58,14 @@ namespace AspMVCCoreGit.Controllers
                     }
                     return RedirectToAction("Index","Home");
                 }
+                if(result.IsNotAllowed)
+                {
+                    ModelState.AddModelError("", "Not Allowed to Login");
+                }
+                else
+                { 
                 ModelState.AddModelError("", "Invalid Credentials");
+                }
             }
             return View();
         }
