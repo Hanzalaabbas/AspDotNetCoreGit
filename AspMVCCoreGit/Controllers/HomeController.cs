@@ -24,9 +24,10 @@ namespace AspMVCCoreGit.Controllers
         private readonly IMessageRepository _newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
         private readonly IOptionsSnapshot<NewBookAlertConfig> thiredPartyBookConfig;
         private readonly IUserService _userService;
+        private readonly IEmailService _emailService;//This is use for send email via Identity Framework
         private readonly NewBookAlertConfig _ThiredPartyBookConfig;//Read configuration using Named options in asp.net core from appsettings 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot, IMessageRepository messageRepository, IMessageRepository newBookAlertConfigMonitor, IOptionsSnapshot<NewBookAlertConfig> thiredPartyBookConfig,IUserService userService)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IOptions<NewBookAlertConfig> newBookAlertConfig, IOptionsSnapshot<NewBookAlertConfig> newBookAlertConfigSnapshot, IMessageRepository messageRepository, IMessageRepository newBookAlertConfigMonitor, IOptionsSnapshot<NewBookAlertConfig> thiredPartyBookConfig,IUserService userService,IEmailService emailService)
         {
             _logger = logger;
             this._configuration = configuration;
@@ -38,6 +39,7 @@ namespace AspMVCCoreGit.Controllers
             _newBookAlertConfigMonitor = newBookAlertConfigMonitor;//Reload configuration in singleton service | IOptionsMonitor |
             this.thiredPartyBookConfig = thiredPartyBookConfig;
             _userService = userService;
+            _emailService = emailService;
             _ThiredPartyBookConfig = thiredPartyBookConfig.Get("ThiredPartyBook");//Read configuration using Named options in asp.net core from appsettings 
         }
         //****************Code Start for [ViewData] Attribut****************
@@ -46,8 +48,15 @@ namespace AspMVCCoreGit.Controllers
         //****************Code End for [ViewData] Attribut****************
         [Route("~/")]
         //[Route("home/index")] *****************If we want to change in future controller or action method name then its change route to for this reslove this issue we can use "Token Replacment" 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+           // UserEmailOptions emailOptions = new UserEmailOptions
+           // {
+           //     ToEmail = new List<string>() { "hanzlaabbas88@gmail.com" },
+           //     PlaceHolders = new List<KeyValuePair<string,string>>() {
+           //     new KeyValuePair<string,string>("{{UserName}}","Hanzala")}
+           // };
+           //await _emailService.SendTestEmail(emailOptions);
             var userId= _userService.GetUserId();//this way we can get  UserID anywhere in controller and service  
             var isLoggdIn = _userService.IsAuthenticated();
             bool isDisplaySnapshot = _newBookAlertConfigSnapshot.DisplayNewBookAlert;//Read configuration using option pattern (IOptionsSnapshot) from appsettings 

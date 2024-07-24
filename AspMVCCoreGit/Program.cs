@@ -57,7 +57,9 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 //********************UserClaimsPrincipalFactory service for store first and lastname store in claims code is Start********************
 builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
 //********************UserClaimsPrincipalFactory service for store first and lastname store in claims code is End********************
-
+//********************EmailService service is configure because this service is send email code is Start********************
+builder.Services.AddScoped<IEmailService, EmailService>();
+//********************EmailService service is configure because this service is send email code is End********************
 //********************Configure Service code is Start********************
 builder.Services.Configure< NewBookAlertConfig>("InternalBook",builder.Configuration.GetSection("NewBookAlert"));
 builder.Services.Configure<NewBookAlertConfig>("ThiredPartyBook", builder.Configuration.GetSection("ThiredPartyBook"));
@@ -72,6 +74,9 @@ builder.Services.ConfigureApplicationCookie(builder =>
 //********************using this service  Get logged-in user id in controller and sevices  code is Start********************
 builder.Services.AddScoped<IUserService, UserService>();
 //********************using this service  Get logged-in user id in controller and sevices  code is End********************
+//********************using this service  we can configureSMTP   code is Start********************
+builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
+//********************using this service  we can configureSMTP   code is  End********************
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
