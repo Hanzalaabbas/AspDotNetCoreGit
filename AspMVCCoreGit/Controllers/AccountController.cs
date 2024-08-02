@@ -100,6 +100,19 @@ namespace AspMVCCoreGit.Controllers
 
             return View(changePasswordModel);
         }
-
+        [HttpGet("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail(string uid,string token)
+        {
+            if(!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(token))
+            {
+                token = token.Replace(' ', '+');
+              var result = await  _accountRepository.CopnfirmEmailAsync(uid, token);
+                if(result.Succeeded)
+                {
+                    ViewBag.IsSuccess = true;
+                }
+            }
+            return View();
+        }
     }
 }

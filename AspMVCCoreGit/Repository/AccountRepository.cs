@@ -69,6 +69,11 @@ namespace AspMVCCoreGit.Repository
             return await _userManager.ChangePasswordAsync(user, changePasswordModel.CurrentPassword, changePasswordModel.NewPassword); 
            
         }
+        public async Task<IdentityResult> CopnfirmEmailAsync(string uid,string token)
+        {
+          return await  _userManager.ConfirmEmailAsync(await _userManager.FindByIdAsync(uid),token);
+
+        }
         private async Task SendEmailConformationEmail(ApplicationUser user,string token)
         {
             var appDomain = _configuration.GetSection("Application:AppDomain").Value;
