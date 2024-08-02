@@ -9,6 +9,8 @@ namespace AspMVCCoreGit.Repository
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUserService _userService;
+        private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
 
         public IUserService UserService { get; }
 
@@ -18,11 +20,13 @@ namespace AspMVCCoreGit.Repository
         //{
         //    _userManager = userManager;
         //}
-        public AccountRepository(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,IUserService userService)
+        public AccountRepository(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,IUserService userService,IEmailService emailService,IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userService = userService;
+            _emailService = emailService;
+            _configuration = configuration;
         }
         public async Task<IdentityResult> CreateUserAsync(SignUpUserModel signUpUserModel)
         {
@@ -39,6 +43,14 @@ namespace AspMVCCoreGit.Repository
                 UserName = signUpUserModel.Email
             };
             var result = await  _userManager.CreateAsync(user,signUpUserModel.Password);
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                if(!string.IsNullOrEmpty(token))
+                {
+                    await SendEmailConformationEmail(user, token);
+                }
+            }
             return result;
         }
         public async Task<SignInResult> PasswordSignInAsync(SignInModel signInModel)
@@ -56,6 +68,21 @@ namespace AspMVCCoreGit.Repository
             var user =await _userManager.FindByIdAsync(userId);
             return await _userManager.ChangePasswordAsync(user, changePasswordModel.CurrentPassword, changePasswordModel.NewPassword); 
            
+        }
+        private async Task SendEmailConformationEmail(ApplicationUser user,string token)
+        {
+            var appDomain = _configuration.GetSection("Application:AppDomain").Value;
+            var confirmationLink = _configuration.GetSection("Application:EmailConfirmation").Value;
+            UserEmailOptions emailOptions = new UserEmailOptions
+            {
+                ToEmail = new List<string>() { user.Email },
+              PlaceHolders = new List<KeyValuePair<string, string>>() {
+              new KeyValuePair<string,string>("{{UserName}}",user.FirstName),
+                new KeyValuePair<string, string>("{{Link}}", string.Format(appDomain + confirmationLink,user.Id,token))
+              }
+            
+            };
+            await _emailService.SendEmailForConfirmation(emailOptions);
         }
 
 
