@@ -12,5 +12,7 @@ namespace AspMVCCoreGit.Repository
         Task<IdentityResult> CopnfirmEmailAsync(string uid, string token);
         Task GenerateEmailConfirmationTokenAsync(ApplicationUser user);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
+        Task GenerateForgotPasswordTokenAsync(ApplicationUser user);
+        Task<IdentityResult> RestPasswordAsync(ResetPasswordModel model);
     }
 }

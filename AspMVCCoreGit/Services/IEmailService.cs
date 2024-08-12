@@ -6,5 +6,6 @@ namespace AspMVCCoreGit.Services
     {
         Task SendEmailForConfirmation(UserEmailOptions emailOptions);
         Task SendTestEmail(UserEmailOptions userEmailOptions);
+        Task SendEmailForForgotPassword(UserEmailOptions userEmailOptions);
     }
 }

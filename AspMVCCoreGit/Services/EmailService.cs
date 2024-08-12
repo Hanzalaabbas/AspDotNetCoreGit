@@ -22,6 +22,12 @@ namespace AspMVCCoreGit.Services
             userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("EmailConfirm"), userEmailOptions.PlaceHolders);
             await SendEmail(userEmailOptions);
         }
+        public async Task SendEmailForForgotPassword(UserEmailOptions userEmailOptions)
+        {
+            userEmailOptions.Subject = UpdatePlaceHolders("Hello {{UserName}} , rest your password.", userEmailOptions.PlaceHolders);
+            userEmailOptions.Body = UpdatePlaceHolders(GetEmailBody("FogotPassword"), userEmailOptions.PlaceHolders);
+            await SendEmail(userEmailOptions);
+        }
         public EmailService(IOptions<SMTPConfigModel> smtpConfig)
         {
             _smtpConfig = smtpConfig.Value;
