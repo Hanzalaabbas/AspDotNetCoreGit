@@ -136,4 +136,9 @@ app.MapControllers();
 //    pattern: "Priv-acy/{id?}",
 //    defaults: new {controller="Home" , action= "Privacy" });
 //Conventional Routing code is ***************************** End
+
+app.MapControllerRoute(
+            name: "MyArea",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 app.Run();
