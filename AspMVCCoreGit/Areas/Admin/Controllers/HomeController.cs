@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace AspMVCCoreGit.Areas.Admin.Controllers
 {
     [Area("admin")]
+    //1:[Route("area/[controller]/[action]")]
+    [Route("admin")]
     public class HomeController : Controller
     {
         // GET: HomeController
@@ -11,7 +13,7 @@ namespace AspMVCCoreGit.Areas.Admin.Controllers
         {
             return View();
         }
-
+        [Route("Details/{id}")]
         // GET: HomeController/Details/5
         public ActionResult Details(int id)
         {
@@ -19,6 +21,7 @@ namespace AspMVCCoreGit.Areas.Admin.Controllers
         }
 
         // GET: HomeController/Create
+        [Route("Create")]
         public ActionResult Create()
         {
             return View();
@@ -27,6 +30,7 @@ namespace AspMVCCoreGit.Areas.Admin.Controllers
         // POST: HomeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Create")]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -40,6 +44,7 @@ namespace AspMVCCoreGit.Areas.Admin.Controllers
         }
 
         // GET: HomeController/Edit/5
+        [Route("Edit/{id}")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -48,6 +53,7 @@ namespace AspMVCCoreGit.Areas.Admin.Controllers
         // POST: HomeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edit/{id}")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -61,6 +67,7 @@ namespace AspMVCCoreGit.Areas.Admin.Controllers
         }
 
         // GET: HomeController/Delete/5
+        [Route("Delete/{id}")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -69,6 +76,7 @@ namespace AspMVCCoreGit.Areas.Admin.Controllers
         // POST: HomeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Delete/{id}")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
