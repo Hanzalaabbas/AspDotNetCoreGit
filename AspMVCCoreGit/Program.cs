@@ -44,10 +44,20 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = false;
     options.SignIn.RequireConfirmedEmail = true;
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.MaxFailedAccessAttempts = 3;//by default 5 attemptes is for wrong password.
     
 });
 //******************** Using this service we can configure the password complexity in Identity core  code is End********************
+//******************** Using this service we can configure Token lifespan in Identity core  code is Start********************
+builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
+{
+    options.TokenLifespan = TimeSpan.FromMinutes(5);
+});
+//******************** Using this service we can configure Token lifespan in Identity core  code is End********************
+
+
+
+
 //********************This Code is Used for add service for exception handeli Code is Start********************
 //builder.Services.AddExceptionHandler<AppExceptionHandler>();   
 //********************This Code is Used for add service for exception handeli Code is End********************
