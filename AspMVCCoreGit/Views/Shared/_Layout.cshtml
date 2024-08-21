@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AspMVCCoreGit</title>
 
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
     <environment include="Development">
         @* we can add  <environment include="Developement"> if we want to work on Developement environment and there we cannot add "min" files *@
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         @* we can add  <environment exclude="Developement"> if we want not work on Developement environment and there we can add "min" files*@
@@ -22,6 +23,7 @@
         integrity=""
               crossorigin="anonymous"> *@
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/site.min.css" rel="stylesheet" />
         @* ***********Link Tag Helper is Used for if CDN is not work then its get link from localPath Code End************@
     </environment>
 

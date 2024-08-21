@@ -1,3 +1,4 @@
+using AspMVCCoreGit.Common;
 using AspMVCCoreGit.Data;
 using AspMVCCoreGit.Helpers;
 using AspMVCCoreGit.Models;
@@ -45,6 +46,10 @@ builder.Services.Configure<IdentityOptions>(options =>
     
 });
 //******************** Using this service we can configure the password complexity in Identity core  code is End********************
+//********************This Code is Used for add service for exception handeli Code is Start********************
+//builder.Services.AddExceptionHandler<AppExceptionHandler>();   
+//********************This Code is Used for add service for exception handeli Code is End********************
+
 //********************This Code is Used for Dependencies Code is Start********************
 //**********************Transient(AddTransient<>)-A new instance of the service will be created every time it is requested.**********************
 //**********************Scoped(AddScoped<>)-These are created onece per client request**********************
@@ -122,6 +127,7 @@ app.UseStaticFiles(new StaticFileOptions()
     RequestPath = "/MyStaticFile"
 });
 //********************UseStaticFiles if we create outside wwwroot folder so for this use Code is End********************
+//app.UseExceptionHandler(_ => { });
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
