@@ -1,6 +1,7 @@
 using AspMVCCoreGit.Models;
 using AspMVCCoreGit.Repository;
 using AspMVCCoreGit.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
@@ -99,6 +100,12 @@ namespace AspMVCCoreGit.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [Authorize(Roles ="Admin")]
+        [Route("~/contact-us")]
+        public ViewResult ContactUs()
+        {
+            return View();
         }
     }
 }

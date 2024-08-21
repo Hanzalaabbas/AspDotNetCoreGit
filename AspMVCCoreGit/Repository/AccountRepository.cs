@@ -9,6 +9,8 @@ namespace AspMVCCoreGit.Repository
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
         private readonly IUserService _userService;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
@@ -21,13 +23,14 @@ namespace AspMVCCoreGit.Repository
         //{
         //    _userManager = userManager;
         //}
-        public AccountRepository(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,IUserService userService,IEmailService emailService,IConfiguration configuration)
+        public AccountRepository(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,IUserService userService,IEmailService emailService,IConfiguration configuration, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userService = userService;
             _emailService = emailService;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
