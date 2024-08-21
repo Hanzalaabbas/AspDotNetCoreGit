@@ -65,6 +65,10 @@ namespace AspMVCCoreGit.Controllers
                 {
                     ModelState.AddModelError("", "Not Allowed to Login");
                 }
+                else if(result.IsLockedOut)
+                {
+                    ModelState.AddModelError("", "Account blocked. Try after  some time.");
+                }
                 else
                 { 
                 ModelState.AddModelError("", "Invalid Credentials");
