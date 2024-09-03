@@ -5,7 +5,10 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <Optimize>true</Optimize>
+    <WarningsAsErrors>true</WarningsAsErrors>
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="MyStaticFile\Images\pic2.png" />
   </ItemGroup>
