@@ -7,8 +7,28 @@ using AspMVCCoreGit.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+//********************1st How we can change wwwRootPath name and set Envoirment Name ,thats way we can override using webApplicationOptions class Code is Start********************
+//Step1: Creating an Instance of WebApplicationOptions Class
+//WebApplicationOptions webApplicationOptions = new WebApplicationOptions()
+//{
+//    WebRootPath = "MyWebRoot",//Setting the WebRootPath as MyWebRoot
+//    Args =args,//Setting the Command Line Arguments in Args
+//    EnvironmentName = "Production",//Changing to Production
 
+//};
+////Step2: Pass WebApplicationOptions Instance to the CreateBuilder Method
+//var builder = WebApplication.CreateBuilder(webApplicationOptions);
+
+//********************1st How we can change wwwRootPath name and set Envoirment Name ,thats way we can override using webApplicationOptions class Code is End********************
+//********************2nd way to change wwwRoot folder name to MyWebRoot  Start********************
+//Setting Custom Web Root Folder
+//WebApplicationBuilder builder = WebApplication.CreateBuilder(new WebApplicationOptions
+//{
+//    WebRootPath = "MyWebRoot"
+//});
+//********************2nd way to change wwwRoot folder name to MyWebRoot   End********************
 var builder = WebApplication.CreateBuilder(args);
+
 // Add services to the container. 
 //********************IF we want to use for asp.net core project then add this method AddControllersWithViews(), ********************
 //********************IF you want mvc core and Razor Pages then call this methodAddMVC()********************
@@ -95,12 +115,25 @@ builder.Services.AddScoped<IUserService, UserService>();
 //********************using this service  we can configureSMTP   code is Start********************
 builder.Services.Configure<SMTPConfigModel>(builder.Configuration.GetSection("SMTPConfig"));
 //********************using this service  we can configureSMTP   code is  End********************
+//string? muCustomValue=builder.Configuration["AppName"];
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
+}
+//If the Environment is Development, Please Show the Unhandled Exception Details 
+if (app.Environment.IsDevelopment())
+{
+    //Create an Instance of DeveloperExceptionPageOptions to Customize
+    //UseDeveloperExceptionPage Middleware Component
+    DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
+    {
+        SourceCodeLineCount = 5
+    };
+    //Passing DeveloperExceptionPageOptions Instance to UseDeveloperExceptionPage Middleware Component
+    app.UseDeveloperExceptionPage(developerExceptionPageOptions);
 }
 //********************Environment Variable Code is Start********************
 //app.Use(async (context, next) =>
@@ -131,6 +164,32 @@ if (!app.Environment.IsDevelopment())
 //    });
 //});
 //********************Endpoint Code is End********************
+
+
+//********************This middleware is used for if we want in our wwwroot folder have many html pages so that approch will help you wich page you want to set as a default page Code is Start********************
+//Specify the MyCustomPage1.html as the default page
+//First Create an Instance of DefaultFilesOptions
+//DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+////Clear any DefaultFileNames if already there
+//defaultFilesOptions.DefaultFileNames.Clear();
+////Add the default HTML Page to the DefaultFilesOptions Instance
+//defaultFilesOptions.DefaultFileNames.Add("MyCustomPage1.html");
+//Setting the Default Files
+//Pass the DefaultFilesOptions Instance to the UseDefaultFiles Middleware Component
+//********************This middleware is used for if we want in our wwwroot folder have many html pages so that approch will help you wich page you want to set as a default page Code is End********************
+//app.UseDefaultFiles(defaultFilesOptions);//This middleware is used for default page
+//
+//********************This  UseFileServer() middleware is used for if we want in The UseFileServer() middleware components combine the functionality of UseStaticFiles, UseDefaultFiles, and UseDirectoryBrowser Middlewares Code is Start********************
+// Use UseFileServer instead of UseDefaultFiles and UseStaticFiles
+//FileServerOptions fileServerOptions = new FileServerOptions();
+//fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+//fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("MyCustomPage1.html");
+//app.UseFileServer(fileServerOptions);
+
+//********************This UseFileServer() middleware is used for if we want in The UseFileServer() middleware components combine the functionality of UseStaticFiles, UseDefaultFiles, and UseDirectoryBrowser Middlewares Code is End********************
+
+
+//app.UseDirectoryBrowser();// Enable directory browsing on the current path
 app.UseStaticFiles();
 //********************UseStaticFiles if we create outside wwwroot folder so for this use Code is Start********************
 app.UseStaticFiles(new StaticFileOptions()
@@ -154,7 +213,21 @@ app.MapControllers();
 //    pattern: "Priv-acy/{id?}",
 //    defaults: new {controller="Home" , action= "Privacy" });
 //Conventional Routing code is ***************************** End
+//app.MapGet("/", () => "Worker Process Name : " + System.Diagnostics.Process.GetCurrentProcess().ProcessName);
+//app.MapGet("/", () => $"{muCustomValue}");
 
+//********************Using MapGet Extenstion method we can check what kind of enviorment ,webroot etc Code is Start********************
+//app.MapGet("/", () => $"EnvironmentName: {app.Environment.EnvironmentName} \n" +
+//            $"ApplicationName: {app.Environment.ApplicationName} \n" +
+//            $"WebRootPath: {app.Environment.WebRootPath} \n" +
+//            $"ContentRootPath: {app.Environment.ContentRootPath}");
+//********************Using MapGet Extenstion method we can check what kind of enviorment ,webroot etc Code is End********************
+app.MapGet("/", async context =>
+{
+    int Number1 = 10, Number2 = 0;
+    int Result = Number1 / Number2; //This statement will throw Runtime Exception
+    await context.Response.WriteAsync($"Result : {Result}");
+});
 app.MapControllerRoute(
             name: "MyArea",
             pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
